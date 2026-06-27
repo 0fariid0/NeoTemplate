@@ -2,7 +2,7 @@
   "id": "neo-dashboard",
   "type": "theme",
   "name": "Neo Dashboard",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "author": "Theme Pack",
   "description": "Dashboard-style subscription page theme with analytics-inspired layout for 3x-ui.",
   "minPanelVersion": "2.0.0",
@@ -10,6 +10,8 @@
     "Data Chart UI",
     "Bulk Copy Links",
     "All Configs QR Code",
-    "Clean White & Teal Aesthetics"
+    "Clean White & Teal Aesthetics",
+    "Jalali Expiration Date",
+    "Last Day Hour/Minute Countdown"
   ]
 }

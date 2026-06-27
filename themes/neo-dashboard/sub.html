@@ -148,9 +148,11 @@ body {
 
 .hero-stats-row { display: flex; align-items: center; justify-content: center; width: 100%; margin-top: 32px; z-index: 1; }
 .hero-stat { display: flex; flex-direction: column; align-items: center; flex: 1; }
-.divider { width: 1px; height: 30px; background: var(--border); flex: none; }
+.divider { width: 1px; min-height: 86px; background: var(--border); flex: none; }
 .stat-label { font-size: 0.75rem; color: var(--text-secondary); margin-bottom: 4px; }
 .stat-val { font-size: 1.125rem; font-weight: 600; font-family: var(--font-display); }
+.stat-extra-label { margin-top: 12px; }
+.stat-val.stat-extra-val { line-height: 1.25; text-align: center; white-space: nowrap; }
 
 /* Action Buttons Grid */
 .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 24px; }
@@ -345,11 +347,15 @@ body {
                     <div class="hero-stat">
                         <span class="stat-label">Used</span>
                         <span class="stat-val">{{ .used }}</span>
+                        <span class="stat-label stat-extra-label">Total Quota</span>
+                        <span class="stat-val stat-extra-val" id="total-quota-inline">{{ .total }}</span>
                     </div>
                     <div class="hero-stat divider"></div>
                     <div class="hero-stat">
                         <span class="stat-label">Days Left</span>
                         <span class="stat-val" id="days-left">-</span>
+                        <span class="stat-label stat-extra-label">Expiration Date</span>
+                        <span class="stat-val stat-extra-val" id="expiry-jalali">-</span>
                     </div>
                 </div>
             </section>
@@ -419,10 +425,6 @@ body {
             <div id="configs-container" class="config-list-container" style="display:flex; flex-direction:column; gap:16px;"></div>
     
                 </div>
-            </div>
-
-            <div class="footer" style="text-align: center; font-size: 0.75rem; margin-top: 24px;">
-                <span class="theme-credit">Subscription Theme</span>
             </div>
             <div style="height: 100px;"></div> <!-- Bottom Spacing -->
         </main>
@@ -565,6 +567,11 @@ function initTrafficStats() {
             }, 300);
         }
     }
+
+    const totalQuotaInlineEl = document.getElementById('total-quota-inline');
+    if (totalQuotaInlineEl) {
+        totalQuotaInlineEl.innerText = totalBytes === 0 ? 'Unlimited' : formatBytes(totalBytes);
+    }
 }
 
 function formatBytes(bytes) {
@@ -579,6 +586,7 @@ function initDaysStats() {
     const rawData = document.getElementById('raw-data');
     const daysLeftEl = document.getElementById('days-left');
     const advExpiryEl = document.getElementById('adv-expiry');
+    const expiryJalaliEl = document.getElementById('expiry-jalali');
     if (!rawData) return;
 
     const expireSeconds = parseInt(rawData.getAttribute('data-expire') || '0', 10);
@@ -586,26 +594,55 @@ function initDaysStats() {
     if (expireSeconds === 0) {
         if(daysLeftEl) daysLeftEl.innerText = "∞";
         if(advExpiryEl) advExpiryEl.innerText = "Unlimited";
+        if(expiryJalaliEl) expiryJalaliEl.innerText = "Unlimited";
         return;
     }
 
     const expiryDate = new Date(expireSeconds * 1000);
     const now = new Date();
     const diffTime = expiryDate - now;
-    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    const oneDayMs = 1000 * 60 * 60 * 24;
+    const diffDays = Math.ceil(diffTime / oneDayMs);
+    const jalaliExpiry = formatJalaliDate(expiryDate);
     
     if(daysLeftEl) {
-        if (diffDays < 0) {
+        if (diffTime <= 0) {
             daysLeftEl.innerText = "0";
             daysLeftEl.style.color = "var(--danger)";
+        } else if (diffTime <= oneDayMs) {
+            daysLeftEl.innerText = formatLastDayTime(diffTime);
+            daysLeftEl.style.color = "var(--warning, #f59e0b)";
         } else {
             daysLeftEl.innerText = diffDays;
         }
     }
     
     if(advExpiryEl) {
-        advExpiryEl.innerText = expiryDate.toLocaleDateString();
+        advExpiryEl.innerText = jalaliExpiry;
     }
+    if(expiryJalaliEl) {
+        expiryJalaliEl.innerText = jalaliExpiry;
+    }
+}
+
+function formatJalaliDate(date) {
+    try {
+        return new Intl.DateTimeFormat('fa-IR-u-ca-persian', {
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit'
+        }).format(date);
+    } catch (e) {
+        return date.toLocaleDateString('fa-IR');
+    }
+}
+
+function formatLastDayTime(ms) {
+    const totalMinutes = Math.max(0, Math.floor(ms / (1000 * 60)));
+    const hours = Math.floor(totalMinutes / 60);
+    const minutes = totalMinutes % 60;
+    if (hours <= 0) return minutes + ' دقیقه';
+    return hours + ' ساعت و ' + minutes + ' دقیقه';
 }
 
 function copyToClipboard(text, msg) {
@@ -850,13 +887,15 @@ document.addEventListener('click', function(e) {
         "Max Allowed": "حجم کلی",
         "Total Limit": "حجم کلی",
         "Total Quota": "حجم کلی",
+        "Total Volume": "حجم کلی",
         "Uploaded": "آپلود",
         "Downloaded": "دانلود",
         "Expiration": "تاریخ انقضا",
         "Expiration Date": "تاریخ انقضا",
+        "Jalali Expiration Date": "تاریخ انقضا",
         "Configurations": "کانفیگ‌ها",
         "Your Configurations": "کانفیگ‌های شما",
-        "Subscription Theme": "قالب سابسکریپشن",
+        "Subscription Theme": "",
         "Quick Actions": "عملیات سریع",
         "Copy Subscription Link": "کپی لینک سابسکریپشن",
         "Copy All Links": "کپی همه لینک‌ها",
