@@ -242,6 +242,77 @@ body {
     .config-bulk-actions { grid-template-columns: 1fr; }
 }
 
+
+/* App Import & Download Buttons */
+.quick-section-title {
+    margin: 18px 0 10px;
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+.import-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.import-grid .full-btn,
+.app-download-grid .app-download-link {
+    min-height: 48px;
+    text-decoration: none;
+    align-items: center;
+    gap: 8px;
+}
+.import-grid .full-btn.outline { margin-top: 0; }
+.app-download-section {
+    margin-top: 8px;
+}
+.platform-block {
+    margin-top: 12px;
+    padding: 12px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--bg-surface-elevated);
+}
+.platform-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--text-primary);
+    font-weight: 700;
+    font-size: 0.9rem;
+    margin-bottom: 10px;
+}
+.app-download-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+.app-download-link {
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-radius: var(--radius-sm);
+    padding: 12px 10px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.82rem;
+    display: inline-flex;
+    justify-content: center;
+    text-align: center;
+}
+.import-helper {
+    color: var(--text-secondary);
+    font-size: 0.78rem;
+    line-height: 1.7;
+    margin-top: 10px;
+}
+@media (max-width: 420px) {
+    .import-grid,
+    .app-download-grid { grid-template-columns: 1fr; }
+}
+
 /* Bottom Nav */
 .bottom-nav {
     position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -268,6 +339,8 @@ body {
     border-radius: var(--radius-lg) var(--radius-lg) 0 0; padding: 24px;
     transform: translateY(100%); transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     padding-bottom: calc(24px + env(safe-area-inset-bottom));
+    max-height: 90vh;
+    overflow-y: auto;
 }
 .modal-overlay.open .modal-card { transform: translateY(0); }
 .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; }
@@ -298,6 +371,10 @@ body {
         data-down="{{ .downloadByte }}" 
         data-total="{{ .totalByte }}"
         data-expire="{{ .expire }}"></div>
+
+    <div id="sub-app-data" style="display:none;"
+        data-sub-url="{{ .subUrl }}"
+        data-sub-name="{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ .sId }}{{ end }}"></div>
 
     <div class="app-container">
         
@@ -453,11 +530,50 @@ body {
                 </button>
             </div>
             <div class="modal-body">
-                <button class="full-btn" onclick="copyToClipboard('{{ .subUrl }}', 'URL Copied!')">Copy Subscription Link</button>
+                <button class="full-btn" onclick="copySubscriptionLink()">Copy Subscription Link</button>
                 <button id="copy-all-links-action" class="full-btn outline" onclick="copyAllConfigLinks()">Copy All Config Links</button>
                 <button id="qr-all-links-action" class="full-btn outline" onclick="showAllLinksQR()">QR Code for All Configs</button>
-                <a href="v2rayng://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="full-btn outline">Import to V2RayNG / v2rayN</a>
-                <a href="v2ray://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="full-btn outline">Import to Shadowrocket / iOS</a>
+
+                <div class="quick-section-title">Direct Import</div>
+                <div class="import-grid">
+                    <button class="full-btn outline" onclick="openClientImport('streisand')">Streisand</button>
+                    <button class="full-btn outline" onclick="openClientImport('hiddify')">Hiddify</button>
+                    <button class="full-btn outline" onclick="openClientImport('v2rayng')">V2RayNG / v2rayN</button>
+                    <button class="full-btn outline" onclick="openClientImport('v2box')">V2Box</button>
+                    <button class="full-btn outline" onclick="openClientImport('singbox')">Sing-box</button>
+                    <button class="full-btn outline" onclick="openClientImport('shadowrocket')">Shadowrocket</button>
+                </div>
+                <div class="import-helper">If direct import does not open on your device, copy the subscription link and import it manually inside the app.</div>
+
+                <div class="quick-section-title">Download Apps</div>
+                <div class="app-download-section">
+                    <div class="platform-block">
+                        <div class="platform-title">🪟 Windows</div>
+                        <div class="app-download-grid">
+                            <a class="app-download-link" href="https://github.com/hiddify/hiddify-app/releases/latest" target="_blank" rel="noopener">Hiddify</a>
+                            <a class="app-download-link" href="https://github.com/2dust/v2rayN/releases/latest" target="_blank" rel="noopener">v2rayN</a>
+                        </div>
+                    </div>
+                    <div class="platform-block">
+                        <div class="platform-title">🍎 iPhone / iOS</div>
+                        <div class="app-download-grid">
+                            <a class="app-download-link" href="https://apps.apple.com/us/app/streisand/id6450534064" target="_blank" rel="noopener">Streisand</a>
+                            <a class="app-download-link" href="https://apps.apple.com/us/app/hiddify-proxy-vpn/id6596777532" target="_blank" rel="noopener">Hiddify</a>
+                            <a class="app-download-link" href="https://apps.apple.com/us/app/v2box-v2ray-client/id6446814690" target="_blank" rel="noopener">V2Box</a>
+                            <a class="app-download-link" href="https://apps.apple.com/us/app/v2raytun/id6476628951" target="_blank" rel="noopener">v2RayTun</a>
+                            <a class="app-download-link" href="https://apps.apple.com/us/app/shadowrocket/id932747118" target="_blank" rel="noopener">Shadowrocket</a>
+                        </div>
+                    </div>
+                    <div class="platform-block">
+                        <div class="platform-title">🤖 Android</div>
+                        <div class="app-download-grid">
+                            <a class="app-download-link" href="https://play.google.com/store/apps/details?id=app.hiddify.com" target="_blank" rel="noopener">Hiddify</a>
+                            <a class="app-download-link" href="https://github.com/2dust/v2rayNG/releases/latest" target="_blank" rel="noopener">V2RayNG</a>
+                            <a class="app-download-link" href="https://github.com/MatsuriDayo/NekoBoxForAndroid/releases/latest" target="_blank" rel="noopener">NekoBox</a>
+                            <a class="app-download-link" href="https://play.google.com/store/apps/details?id=dev.hexasoftware.v2box" target="_blank" rel="noopener">V2Box</a>
+                        </div>
+                    </div>
+                </div>
             <a class="modal-btn" style="text-decoration:none; background: var(--success); color: white; margin-top: 12px;" href="{{ .subSupportUrl }}" target="_blank">
                 <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
                 Contact Support
@@ -643,6 +759,54 @@ function formatLastDayTime(ms) {
     const minutes = totalMinutes % 60;
     if (hours <= 0) return minutes + ' دقیقه';
     return hours + ' ساعت و ' + minutes + ' دقیقه';
+}
+
+
+function getSubscriptionMeta() {
+    var el = document.getElementById('sub-app-data');
+    var url = el ? (el.getAttribute('data-sub-url') || '') : '';
+    var name = el ? (el.getAttribute('data-sub-name') || '') : '';
+    if (!name) {
+        var displayName = document.getElementById('display-name');
+        name = displayName ? displayName.innerText.trim() : 'Subscription';
+    }
+    if (!name) name = 'Subscription';
+    return { url: url, name: name };
+}
+
+function copySubscriptionLink() {
+    var meta = getSubscriptionMeta();
+    if (!meta.url) return;
+    copyToClipboard(meta.url, 'URL Copied!');
+}
+
+function buildClientImportLink(clientKey) {
+    var meta = getSubscriptionMeta();
+    if (!meta.url) return '';
+    var encodedUrl = encodeURIComponent(meta.url);
+    var encodedName = encodeURIComponent(meta.name || 'Subscription');
+
+    var builders = {
+        streisand: function() { return 'streisand://import/' + encodedUrl + '#' + encodedName; },
+        hiddify: function() { return 'hiddify://import/' + encodedUrl + '#' + encodedName; },
+        v2rayng: function() { return 'v2rayng://install-sub?url=' + encodedUrl + '&name=' + encodedName; },
+        v2box: function() { return 'v2box://install-sub?url=' + encodedUrl + '&name=' + encodedName; },
+        singbox: function() { return 'sing-box://import-remote-profile?url=' + encodedUrl + '#' + encodedName; },
+        shadowrocket: function() { return 'v2ray://install-sub?url=' + encodedUrl + '&name=' + encodedName; }
+    };
+
+    return builders[clientKey] ? builders[clientKey]() : '';
+}
+
+function openClientImport(clientKey) {
+    var importLink = buildClientImportLink(clientKey);
+    if (!importLink) return;
+
+    var meta = getSubscriptionMeta();
+    copyToClipboard(meta.url, 'Subscription link copied!');
+    setTimeout(function() {
+        window.location.href = importLink;
+    }, 120);
 }
 
 function copyToClipboard(text, msg) {
@@ -897,6 +1061,19 @@ document.addEventListener('click', function(e) {
         "Your Configurations": "کانفیگ‌های شما",
         "Subscription Theme": "",
         "Quick Actions": "عملیات سریع",
+        "Direct Import": "ورود مستقیم به برنامه",
+        "Streisand": "Streisand",
+        "Hiddify": "Hiddify",
+        "V2RayNG / v2rayN": "V2RayNG / v2rayN",
+        "V2Box": "V2Box",
+        "Sing-box": "Sing-box",
+        "Shadowrocket": "Shadowrocket",
+        "If direct import does not open on your device, copy the subscription link and import it manually inside the app.": "اگر ورود مستقیم روی دستگاه باز نشد، لینک سابسکریپشن را کپی کنید و داخل برنامه به‌صورت دستی وارد کنید.",
+        "Download Apps": "دانلود برنامه‌ها",
+        "Windows": "ویندوز",
+        "iPhone / iOS": "آیفون / iOS",
+        "Android": "اندروید",
+        "Subscription link copied!": "لینک سابسکریپشن کپی شد!",
         "Copy Subscription Link": "کپی لینک سابسکریپشن",
         "Copy All Links": "کپی همه لینک‌ها",
         "QR All Links": "کد QR همه لینک‌ها",

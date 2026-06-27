@@ -2,9 +2,9 @@
   "id": "neo-dashboard",
   "type": "theme",
   "name": "Neo Dashboard",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "author": "Theme Pack",
-  "description": "Dashboard-style subscription page theme with analytics-inspired layout for 3x-ui.",
+  "description": "Premium mobile dashboard with bulk QR, Jalali expiry, app import and downloads.",
   "minPanelVersion": "2.0.0",
   "features": [
     "Data Chart UI",
@@ -12,6 +12,9 @@
     "All Configs QR Code",
     "Clean White & Teal Aesthetics",
     "Jalali Expiration Date",
-    "Last Day Hour/Minute Countdown"
+    "Last Day Hour/Minute Countdown",
+    "Direct App Import",
+    "Streisand Import",
+    "Client App Downloads"
   ]
 }

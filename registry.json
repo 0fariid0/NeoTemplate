@@ -73,9 +73,9 @@
     {
       "id": "neo-dashboard",
       "name": "Neo Dashboard",
-      "description": "Dashboard-style subscription page theme with analytics-inspired layout.",
+      "description": "Dashboard-style subscription page theme with bulk QR, Jalali expiry, app import and downloads.",
       "type": "theme",
-      "latest": "1.2.2",
+      "latest": "1.2.3",
       "versions": {
         "1.2.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
@@ -88,6 +88,10 @@
         "1.2.2": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
           "checksum": "44ae2138c1e8fd41794ac0cc3a24f733e6c2feac4f590a2cf890921551377d30"
+        },
+        "1.2.3": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "3c239e40b89fe6d201724cba1657929c5c0d0ac76c5d331d783ee63415733e6e"
         }
       }
     }
