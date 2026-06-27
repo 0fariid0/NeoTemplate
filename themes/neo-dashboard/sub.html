@@ -187,6 +187,59 @@ body {
 .config-btn { width: 36px; height: 36px; border-radius: 10px; background: var(--bg-surface-elevated); color: var(--text-primary); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .config-btn.primary { background: rgba(59, 130, 246, 0.1); color: var(--accent); }
 
+
+
+/* Bulk Config Actions */
+.config-bulk-actions {
+    display: none;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 0 0 16px 0;
+}
+.bulk-btn {
+    border: 1px solid var(--border);
+    background: var(--bg-surface);
+    color: var(--text-primary);
+    border-radius: var(--radius-md);
+    padding: 14px 12px;
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.875rem;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+.bulk-btn.primary {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent);
+}
+.qr-note {
+    margin-top: 14px;
+    color: var(--text-secondary);
+    font-size: 0.82rem;
+    text-align: center;
+    line-height: 1.6;
+}
+.qr-value-preview {
+    width: 100%;
+    min-height: 90px;
+    margin-top: 12px;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border);
+    background: var(--bg-surface-elevated);
+    color: var(--text-primary);
+    padding: 12px;
+    resize: vertical;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.75rem;
+    line-height: 1.5;
+}
+@media (max-width: 420px) {
+    .config-bulk-actions { grid-template-columns: 1fr; }
+}
+
 /* Bottom Nav */
 .bottom-nav {
     position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
@@ -344,6 +397,17 @@ body {
             <!-- Configurations List -->
             <div class="configs-section">
                 <h3 class="section-title">Your Configurations</h3>
+                
+                <div id="config-bulk-actions" class="config-bulk-actions">
+                    <button class="bulk-btn primary" onclick="copyAllConfigLinks()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg>
+                        <span>Copy All Links</span>
+                    </button>
+                    <button class="bulk-btn" onclick="showAllLinksQR()">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect></svg>
+                        <span>QR All Links</span>
+                    </button>
+                </div>
                 <div class="configs-list">
                     
             <!-- Hidden raw links for JS to parse -->
@@ -388,6 +452,8 @@ body {
             </div>
             <div class="modal-body">
                 <button class="full-btn" onclick="copyToClipboard('{{ .subUrl }}', 'URL Copied!')">Copy Subscription Link</button>
+                <button id="copy-all-links-action" class="full-btn outline" onclick="copyAllConfigLinks()">Copy All Config Links</button>
+                <button id="qr-all-links-action" class="full-btn outline" onclick="showAllLinksQR()">QR Code for All Configs</button>
                 <a href="v2rayng://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="full-btn outline">Import to V2RayNG / v2rayN</a>
                 <a href="v2ray://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="full-btn outline">Import to Shadowrocket / iOS</a>
             <a class="modal-btn" style="text-decoration:none; background: var(--success); color: white; margin-top: 12px;" href="{{ .subSupportUrl }}" target="_blank">
@@ -410,6 +476,8 @@ body {
             <div class="qr-wrapper">
                 <canvas id="qr-canvas"></canvas>
             </div>
+            <div id="qr-note" class="qr-note"></div>
+            <textarea id="qr-value-preview" class="qr-value-preview" readonly style="display:none;"></textarea>
         </div>
     </div>
 
@@ -584,23 +652,39 @@ function fallbackCopy(text, callback) {
     document.body.removeChild(textArea);
 }
 
-function showQR(link, name) {
+function showQR(link, name, note, showPreview) {
     const modal = document.getElementById('qr-modal');
     const title = document.getElementById('qr-title');
     const canvas = document.getElementById('qr-canvas');
+    const noteEl = document.getElementById('qr-note');
+    const previewEl = document.getElementById('qr-value-preview');
     if (!modal || !title || !canvas) return;
     
     title.innerText = name;
-    new QRious({
-        element: canvas,
-        value: link,
-        size: 200,
-        background: 'white',
-        foreground: 'black'
-    });
+    if (noteEl) noteEl.innerText = note || '';
+    if (previewEl) {
+        previewEl.value = link;
+        previewEl.style.display = showPreview ? 'block' : 'none';
+    }
+
+    try {
+        new QRious({
+            element: canvas,
+            value: link,
+            size: showPreview ? 280 : 220,
+            level: 'L',
+            background: 'white',
+            foreground: 'black'
+        });
+    } catch (err) {
+        if (noteEl) noteEl.innerText = 'The QR payload is very large. The full links are shown below for manual copy.';
+        if (previewEl) previewEl.style.display = 'block';
+        console.error('QR generation failed', err);
+    }
     
     modal.classList.add('open');
 }
+
 
 function timeAgo(date) {
     const seconds = Math.floor((new Date() - date) / 1000);
@@ -618,6 +702,48 @@ function timeAgo(date) {
 }
 
 
+function getRawConfigLinks() {
+    var rawLinksContainer = document.getElementById('raw-links-container');
+    if (!rawLinksContainer) return [];
+    var rawLinkEls = rawLinksContainer.querySelectorAll('.raw-link');
+    var rawLinks = [];
+    for (var i = 0; i < rawLinkEls.length; i++) {
+        var t = rawLinkEls[i].innerText.trim();
+        if (t.length > 0) rawLinks.push(t);
+    }
+    return rawLinks;
+}
+
+function getAllConfigLinksText() {
+    return getRawConfigLinks().join('\n');
+}
+
+function updateBulkActionVisibility(count) {
+    var total = typeof count === 'number' ? count : getRawConfigLinks().length;
+    var shouldShow = total > 1;
+    var bulk = document.getElementById('config-bulk-actions');
+    var copyAction = document.getElementById('copy-all-links-action');
+    var qrAction = document.getElementById('qr-all-links-action');
+    if (bulk) bulk.style.display = shouldShow ? 'grid' : 'none';
+    if (copyAction) copyAction.style.display = shouldShow ? 'flex' : 'none';
+    if (qrAction) qrAction.style.display = shouldShow ? 'flex' : 'none';
+}
+
+function copyAllConfigLinks() {
+    var allLinks = getAllConfigLinksText();
+    if (!allLinks) return;
+    copyToClipboard(allLinks, 'All Configs Copied!');
+}
+
+function showAllLinksQR() {
+    var links = getRawConfigLinks();
+    if (!links.length) return;
+    var payload = links.join('\n');
+    var label = links.length + ' Config Links';
+    showQR(payload, label, 'All configuration links are inside this QR code, separated by new lines.', true);
+}
+
+
 // renderConfigs replaced below
 
 
@@ -626,12 +752,8 @@ function renderConfigs() {
     var rawLinksContainer = document.getElementById('raw-links-container');
     if (!container || !rawLinksContainer) return;
 
-    var rawLinkEls = rawLinksContainer.querySelectorAll('.raw-link');
-    var rawLinks = [];
-    for (var i = 0; i < rawLinkEls.length; i++) {
-        var t = rawLinkEls[i].innerText.trim();
-        if (t.length > 0) rawLinks.push(t);
-    }
+    var rawLinks = getRawConfigLinks();
+    updateBulkActionVisibility(rawLinks.length);
     
     if (rawLinks.length === 0) {
         container.innerHTML = '<div style="text-align:center; padding: 24px; opacity:0.5;">No configs available</div>';
@@ -680,15 +802,12 @@ document.addEventListener('click', function(e) {
     
     if (e.target === actionModal) {
         actionModal.classList.remove('open');
-        actionModal.style.display = 'none';
     }
     if (e.target === qrModal) {
         qrModal.classList.remove('open');
-        qrModal.style.display = 'none';
     }
     if (e.target === advModal) {
         advModal.classList.remove('open');
-        advModal.style.display = 'none';
     }
 });
 // === LANG ENHANCER START ===
@@ -740,6 +859,13 @@ document.addEventListener('click', function(e) {
         "Subscription Theme": "قالب سابسکریپشن",
         "Quick Actions": "عملیات سریع",
         "Copy Subscription Link": "کپی لینک سابسکریپشن",
+        "Copy All Links": "کپی همه لینک‌ها",
+        "QR All Links": "کد QR همه لینک‌ها",
+        "Copy All Config Links": "کپی همه کانفیگ‌ها",
+        "QR Code for All Configs": "کد QR همه کانفیگ‌ها",
+        "All Configs Copied!": "همه کانفیگ‌ها کپی شد!",
+        "All configuration links are inside this QR code, separated by new lines.": "همه لینک‌های کانفیگ داخل این QR هستند و با خط جدید جدا شده‌اند.",
+        "Config Links": "لینک کانفیگ",
         "Copy Subscription": "کپی لینک سابسکریپشن",
         "Import to V2RayNG / v2rayN": "ورود به V2RayNG / v2rayN",
         "Import to Shadowrocket / iOS": "ورود به Shadowrocket / iOS",
