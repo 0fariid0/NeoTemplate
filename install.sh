@@ -70,10 +70,17 @@ if [[ ! -f "$CONFIG_DIR/config.json" ]]; then
   cp "$INSTALL_DIR/config/config.json" "$CONFIG_DIR/config.json"
 else
   # Keep user paths, refresh repository/update URLs from the new package.
+  # In single-folder mode, activeThemeDirectory is the one fixed folder that 3x-ui should use.
   old_install_dir="$(jq -r '.installDirectory // empty' "$CONFIG_DIR/config.json" 2>/dev/null || true)"
+  old_active_dir="$(jq -r '.activeThemeDirectory // empty' "$CONFIG_DIR/config.json" 2>/dev/null || true)"
   old_cache_dir="$(jq -r '.cacheDirectory // empty' "$CONFIG_DIR/config.json" 2>/dev/null || true)"
   cp "$INSTALL_DIR/config/config.json" "$CONFIG_DIR/config.json"
   [[ -n "$old_install_dir" ]] && tmp="$(mktemp)" && jq --arg v "$old_install_dir" '.installDirectory=$v' "$CONFIG_DIR/config.json" > "$tmp" && mv "$tmp" "$CONFIG_DIR/config.json"
+  if [[ -n "$old_active_dir" ]]; then
+    tmp="$(mktemp)" && jq --arg v "$old_active_dir" '.activeThemeDirectory=$v' "$CONFIG_DIR/config.json" > "$tmp" && mv "$tmp" "$CONFIG_DIR/config.json"
+  elif [[ -n "$old_install_dir" ]]; then
+    tmp="$(mktemp)" && jq --arg v "$old_install_dir" '.activeThemeDirectory=$v' "$CONFIG_DIR/config.json" > "$tmp" && mv "$tmp" "$CONFIG_DIR/config.json"
+  fi
   [[ -n "$old_cache_dir" ]] && tmp="$(mktemp)" && jq --arg v "$old_cache_dir" '.cacheDirectory=$v' "$CONFIG_DIR/config.json" > "$tmp" && mv "$tmp" "$CONFIG_DIR/config.json"
 fi
 
