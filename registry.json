@@ -75,11 +75,15 @@
       "name": "Neo Dashboard",
       "description": "Dashboard-style subscription page theme with analytics-inspired layout.",
       "type": "theme",
-      "latest": "1.2.0",
+      "latest": "1.2.1",
       "versions": {
         "1.2.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
           "checksum": "cc83af9cc6b31a46713f81c0edf8d9747827e0ef027995a5f1a55b1271c5e191"
+        },
+        "1.2.1": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "0fcdb0572b98f7bf428a60adb43313f1b3726788a9f0699e8690ae3a28fe0a5a"
         }
       }
     }
