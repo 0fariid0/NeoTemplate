@@ -1,0 +1,17 @@
+{
+  "id": "neo-default",
+  "type": "theme",
+  "name": "Neo Default",
+  "version": "2.0.0",
+  "author": "Subscription Theme Pack",
+  "description": "Clean mobile-first dashboard with quick copy buttons and clear traffic status.",
+  "minPanelVersion": "2.0.0",
+  "license": "MIT",
+  "features": [
+    "responsive",
+    "fast-inline-assets",
+    "clipboard",
+    "multiple-subscription-links",
+    "no-external-dependencies"
+  ]
+}

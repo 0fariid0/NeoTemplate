@@ -1,0 +1,17 @@
+{
+  "id": "neo-ocean",
+  "type": "theme",
+  "name": "Neo Ocean",
+  "version": "2.0.0",
+  "author": "Subscription Theme Pack",
+  "description": "Blue-green calm theme for clean subscriber dashboards.",
+  "minPanelVersion": "2.0.0",
+  "license": "MIT",
+  "features": [
+    "responsive",
+    "fast-inline-assets",
+    "clipboard",
+    "multiple-subscription-links",
+    "no-external-dependencies"
+  ]
+}

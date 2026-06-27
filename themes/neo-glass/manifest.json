@@ -1,0 +1,17 @@
+{
+  "id": "neo-glass",
+  "type": "theme",
+  "name": "Neo Glass",
+  "version": "2.0.0",
+  "author": "Subscription Theme Pack",
+  "description": "Soft glassmorphism theme with blurred cards and glossy controls.",
+  "minPanelVersion": "2.0.0",
+  "license": "MIT",
+  "features": [
+    "responsive",
+    "fast-inline-assets",
+    "clipboard",
+    "multiple-subscription-links",
+    "no-external-dependencies"
+  ]
+}

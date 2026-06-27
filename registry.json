@@ -1,0 +1,140 @@
+{
+  "version": "2.0.0",
+  "manager": {
+    "version": "2.0.0",
+    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/manager.sh",
+    "archiveUrl": "https://github.com/0fariid0/NeoTemplate/archive/refs/heads/main.tar.gz"
+  },
+  "packages": [
+    {
+      "id": "neo-default",
+      "name": "Neo Default",
+      "description": "Clean mobile-first dashboard with quick copy buttons and clear traffic status.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-default.zip",
+          "checksum": "c0775c2a441122a09b928c66f21022c305f665823573c57ba43b58ef13bb1d3a"
+        }
+      }
+    },
+    {
+      "id": "neo-eclipse",
+      "name": "Neo Eclipse",
+      "description": "Dark professional interface for premium subscription panels.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-eclipse.zip",
+          "checksum": "43ea4cdb363c0c2bd5bbf39d4e1883a0795ec7ad432a2e8965c7d01b2c20241a"
+        }
+      }
+    },
+    {
+      "id": "neo-glass",
+      "name": "Neo Glass",
+      "description": "Soft glassmorphism theme with blurred cards and glossy controls.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-glass.zip",
+          "checksum": "32083420cde39eda2e78ded31d52273dbc8cbf7c80324e9e366b8ea98c17edaa"
+        }
+      }
+    },
+    {
+      "id": "neo-minimal",
+      "name": "Neo Minimal",
+      "description": "High contrast, simple, and extremely lightweight.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-minimal.zip",
+          "checksum": "969852f81b6ea48de50b30c6722b449c8079ce06162ad8d1ad6e7b952c5cfc74"
+        }
+      }
+    },
+    {
+      "id": "neo-vibrant",
+      "name": "Neo Vibrant",
+      "description": "Energetic orange and purple layout for sales-focused subscription pages.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-vibrant.zip",
+          "checksum": "fe43a43436f3daa51bcf79d287f90c8a59cd53f65ba7d6629d2b6070d4e1f808"
+        }
+      }
+    },
+    {
+      "id": "neo-carbon",
+      "name": "Neo Carbon",
+      "description": "Matte black theme with sharp contrast and fast loading.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-carbon.zip",
+          "checksum": "45e5f542669943b22a9353a140c5f81792f84edef768fc77ebead338cabb5ab5"
+        }
+      }
+    },
+    {
+      "id": "neo-ocean",
+      "name": "Neo Ocean",
+      "description": "Blue-green calm theme for clean subscriber dashboards.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-ocean.zip",
+          "checksum": "4694f2e827d1b0a1b71b8009797b2b965517d8bf2755f106e420ad52da86f66f"
+        }
+      }
+    },
+    {
+      "id": "neo-rose",
+      "name": "Neo Rose",
+      "description": "Warm rose premium style with soft panels and elegant gradients.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-rose.zip",
+          "checksum": "22152dbdda9fd7dbbe47d28ac42e283d9d865db7d6ba2c8341384c39258ef125"
+        }
+      }
+    },
+    {
+      "id": "neo-forest",
+      "name": "Neo Forest",
+      "description": "Dark green theme with natural contrast and simple cards.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-forest.zip",
+          "checksum": "5ebd39121196282a126a9cd1967298b82a8b1f8e158d3d640529b13211ed50e9"
+        }
+      }
+    },
+    {
+      "id": "neo-royal",
+      "name": "Neo Royal",
+      "description": "Luxury gold and navy design for premium services.",
+      "type": "theme",
+      "latest": "2.0.0",
+      "versions": {
+        "2.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-royal.zip",
+          "checksum": "96489efd9c0e5a418cda6b1834b0160910e70721ddab1d2a2f058339afdd3cfb"
+        }
+      }
+    }
+  ]
+}

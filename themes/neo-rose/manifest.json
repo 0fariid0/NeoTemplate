@@ -1,0 +1,17 @@
+{
+  "id": "neo-rose",
+  "type": "theme",
+  "name": "Neo Rose",
+  "version": "2.0.0",
+  "author": "Subscription Theme Pack",
+  "description": "Warm rose premium style with soft panels and elegant gradients.",
+  "minPanelVersion": "2.0.0",
+  "license": "MIT",
+  "features": [
+    "responsive",
+    "fast-inline-assets",
+    "clipboard",
+    "multiple-subscription-links",
+    "no-external-dependencies"
+  ]
+}

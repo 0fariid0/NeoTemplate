@@ -1,0 +1,17 @@
+{
+  "id": "neo-eclipse",
+  "type": "theme",
+  "name": "Neo Eclipse",
+  "version": "2.0.0",
+  "author": "Subscription Theme Pack",
+  "description": "Dark professional interface for premium subscription panels.",
+  "minPanelVersion": "2.0.0",
+  "license": "MIT",
+  "features": [
+    "responsive",
+    "fast-inline-assets",
+    "clipboard",
+    "multiple-subscription-links",
+    "no-external-dependencies"
+  ]
+}
