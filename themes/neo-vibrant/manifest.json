@@ -1,0 +1,15 @@
+{
+  "id": "neo-vibrant",
+  "type": "theme",
+  "name": "Neo Vibrant",
+  "version": "1.2.0",
+  "author": "Theme Pack",
+  "description": "Vibrant neon subscription page theme with strong mobile layout for 3x-ui.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "dark-mode",
+    "responsive",
+    "clipboard",
+    "animations"
+  ]
+}

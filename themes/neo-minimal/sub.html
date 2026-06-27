@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo Minimal</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <!-- qrious for QR Code generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body class="theme-dark">
+    <!-- Raw Data -->
+    <div id="raw-data" style="display:none;" 
+        data-up="{{ .uploadByte }}" 
+        data-down="{{ .downloadByte }}" 
+        data-total="{{ .totalByte }}"
+        data-expire="{{ .expire }}"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <header style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 8px; padding: 0 8px; margin-top: 8px; gap: 12px;">
+            <h1 style="font-size: 1.25rem; font-weight: 700; margin: 0; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; flex: 1; min-width: 0;">{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ .sId }}{{ end }}</h1>
+            <a href="{{ .subSupportUrl }}" target="_blank" style="display:flex; align-items:center; gap:6px; background:var(--accent-green); color:black; text-decoration:none; padding:8px 16px; border-radius:99px; font-weight:600; font-size:0.875rem; transition: transform 0.2s; flex-shrink: 0;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Support
+            </a>
+        </header>
+        
+        <!-- Main Battery Widget -->
+        <div class="widget-card">
+            
+            <div class="widget-header">
+                <span class="widget-title">{{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}</span>
+                <div style="display: flex; gap: 8px; align-items: center;">
+                    <!-- Info Icon for Advanced Details -->
+                    <button class="icon-btn" onclick="document.getElementById('adv-modal').classList.add('open')">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    </button>
+                    <span class="widget-status {{ if .enabled }}status-active{{ else }}status-disabled{{ end }}">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+                        {{ if .enabled }}Active{{ else }}Disabled{{ end }}
+                    </span>
+                </div>
+            </div>
+            
+            <div class="widget-hero">
+                <span class="hero-val" id="percent-val">0</span>
+                <span class="hero-unit">%</span>
+            </div>
+            <div class="hero-label">Remaining Data</div>
+            
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-box-val" id="days-left">-</span>
+                    <span class="stat-box-lbl">Days Left</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-box-val">{{ .remained }}</span>
+                    <span class="stat-box-lbl">Remaining Traffic</span>
+                </div>
+            </div>
+            
+            <div class="traffic-list">
+                <div class="traffic-row">
+                    <div class="traffic-left">
+                        <span class="dot dot-green"></span>
+                        <span class="traffic-lbl">Downloaded</span>
+                    </div>
+                    <span class="traffic-val">{{ .download }}</span>
+                </div>
+                <div class="traffic-row">
+                    <div class="traffic-left">
+                        <span class="dot dot-yellow"></span>
+                        <span class="traffic-lbl">Uploaded</span>
+                    </div>
+                    <span class="traffic-val">{{ .upload }}</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configurations List -->
+        <h3 class="section-title">Configurations</h3>
+        <div class="config-list">
+            
+            <!-- Hidden raw links for JS to parse -->
+            <div id="raw-links-container" style="display:none;">
+                {{ range .links }}
+                <div class="raw-link">{{ . }}</div>
+                {{ end }}
+            </div>
+            <div id="configs-container" class="config-list-container" style="display:flex; flex-direction:column; gap:16px;"></div>
+    
+        </div>
+        
+        <button class="action-btn" onclick="copyToClipboard('{{ .subUrl }}', 'URL Copied!')">Copy Subscription Link</button>
+        <div class="footer" style="padding-bottom: 120px;">
+            {{ .subTitle }} &bull; <span class="theme-credit">Subscription Theme</span>
+        </div>
+    </div>
+
+    <!-- Quick Actions Pill -->
+    <div class="quick-actions-pill" onclick="document.getElementById('action-modal').classList.add('open')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <span>Quick Actions</span>
+    </div>
+
+    <!-- Quick Actions Modal -->
+    <div class="modal" id="action-modal">
+        <div class="modal-content">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom: 24px;">
+                <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Quick Actions</h3>
+                <button style="background:none; border:none; color:var(--text-main); font-size:1.5rem; cursor:pointer;" onclick="document.getElementById('action-modal').classList.remove('open')">✕</button>
+            </div>
+            <button class="action-btn" style="margin-bottom: 12px; display:flex; justify-content:center;" onclick="copyToClipboard('{{ .subUrl }}', 'URL Copied!')">Copy Subscription Link</button>
+            <a href="v2rayng://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="action-btn" style="margin-bottom: 12px; text-decoration:none; display:flex; justify-content:center;">Import to V2RayNG / v2rayN</a>
+            <a href="v2ray://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="action-btn" style="text-decoration:none; display:flex; justify-content:center;">Import to Shadowrocket / iOS</a>
+
+        </div>
+    </div>
+
+    <!-- Advanced Info Modal -->
+    <div class="modal" id="adv-modal">
+        <div class="modal-content">
+            <h3 style="margin-bottom:16px;">Advanced Info</h3>
+            <div class="adv-row"><span>Status:</span> <b>{{ if .enabled }}Active{{ else }}Disabled{{ end }}</b></div>
+            <div class="adv-row"><span>Total Quota:</span> <b>{{ .total }}</b></div>
+            <div class="adv-row"><span>Total Used:</span> <b>{{ .used }}</b></div>
+            <div class="adv-row"><span>Expiration:</span> <b id="adv-expiry">{{ .expire }}</b></div>
+            <button class="action-btn" style="margin-top:24px;" onclick="document.getElementById('adv-modal').classList.remove('open')">Close</button>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qr-modal">
+        <div class="modal-content" style="align-items:center; text-align:center;">
+            <h3 id="qr-title" style="margin-bottom:16px; word-break:break-all; font-size:1rem;"></h3>
+            <div style="background:white; padding:16px; border-radius:12px;"><canvas id="qr-canvas"></canvas></div>
+            <button class="action-btn" style="margin-top:24px;" onclick="document.getElementById('qr-modal').classList.remove('open')">Close</button>
+        </div>
+    </div>
+
+    <div id="toast" style="display:none; position:fixed; top:24px; left:50%; transform:translateX(-50%); background:#333; color:white; padding:12px 24px; border-radius:99px; z-index:999; font-weight:500;"></div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

@@ -1,0 +1,7 @@
+{
+  "repositoryUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/registry.json",
+  "installDirectory": "/etc/3x-ui/sub_templates",
+  "cacheDirectory": "/tmp/3x-ui-theme-manager/cache",
+  "autoUpdate": false,
+  "language": "en"
+}

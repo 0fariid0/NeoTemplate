@@ -1,0 +1,87 @@
+{
+  "version": "1.2.0",
+  "manager": {
+    "version": "1.2.0",
+    "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
+  },
+  "packages": [
+    {
+      "id": "neo-default",
+      "name": "Neo Default",
+      "description": "Clean, modern and lightweight subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-default.zip",
+          "checksum": "7031613ef195c8554169b639019585e972e859250a7daf1b08e9a4626c9c07cc"
+        }
+      }
+    },
+    {
+      "id": "neo-eclipse",
+      "name": "Neo Eclipse",
+      "description": "Dark, structured and professional subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-eclipse.zip",
+          "checksum": "3d702f22672531f15691047a2e099acc09cab7599b5e591c1484050bb793df62"
+        }
+      }
+    },
+    {
+      "id": "neo-glass",
+      "name": "Neo Glass",
+      "description": "Glassmorphism subscription page theme with soft gradients.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-glass.zip",
+          "checksum": "597f338df1fc3af874cfa0fb71f5568afba5e4c67a7d9311a0e976ab39b3ac98"
+        }
+      }
+    },
+    {
+      "id": "neo-minimal",
+      "name": "Neo Minimal",
+      "description": "Minimal, high-contrast subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-minimal.zip",
+          "checksum": "75647c2a45fb2946107444cdf2c545ddde1dd550ac00e5a89832493353f7453c"
+        }
+      }
+    },
+    {
+      "id": "neo-vibrant",
+      "name": "Neo Vibrant",
+      "description": "Vibrant neon subscription page theme with strong mobile layout.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-vibrant.zip",
+          "checksum": "10127933984f56cdd845219acc8cd5917105eaca9689cc588b7f9007db621f54"
+        }
+      }
+    },
+    {
+      "id": "neo-dashboard",
+      "name": "Neo Dashboard",
+      "description": "Dashboard-style subscription page theme with analytics-inspired layout.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "cc83af9cc6b31a46713f81c0edf8d9747827e0ef027995a5f1a55b1271c5e191"
+        }
+      }
+    }
+  ]
+}

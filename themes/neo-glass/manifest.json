@@ -1,0 +1,14 @@
+{
+  "id": "neo-glass",
+  "type": "theme",
+  "name": "Neo Glass",
+  "version": "1.2.0",
+  "author": "Theme Pack",
+  "description": "Glassmorphism subscription page theme with soft gradients for 3x-ui.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "Glassmorphism UI",
+    "Fluid Gradient Background",
+    "Modern iOS Aesthetics"
+  ]
+}

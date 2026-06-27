@@ -1,0 +1,15 @@
+{
+  "id": "neo-default",
+  "type": "theme",
+  "name": "Neo Default",
+  "version": "1.2.0",
+  "author": "Theme Pack",
+  "description": "Clean, modern and lightweight subscription page theme for 3x-ui.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "dark-mode",
+    "responsive",
+    "clipboard",
+    "animations"
+  ]
+}

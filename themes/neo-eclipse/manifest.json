@@ -1,0 +1,15 @@
+{
+  "id": "neo-eclipse",
+  "type": "theme",
+  "name": "Neo Eclipse",
+  "version": "1.2.0",
+  "author": "Theme Pack",
+  "description": "Dark, structured and professional subscription page theme for 3x-ui.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "Fintech UI",
+    "Dark Mode Ready",
+    "Custom Segmented Progress Bar",
+    "Responsive Layout"
+  ]
+}

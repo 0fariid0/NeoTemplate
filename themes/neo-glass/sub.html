@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Neo Glass - Subscription</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+</head>
+<body class="theme-dark">
+    <!-- Ambient Background -->
+    <div class="ambient-bg">
+        <div class="blob blob-1"></div>
+        <div class="blob blob-2"></div>
+        <div class="blob blob-3"></div>
+    </div>
+
+    <!-- Raw Data for JS -->
+    <div id="raw-data" style="display:none;" 
+        data-up="{{ .uploadByte }}" 
+        data-down="{{ .downloadByte }}" 
+        data-total="{{ .totalByte }}"
+        data-expire="{{ .expire }}"></div>
+
+    <div class="container">
+        
+        <header class="header glass-pane">
+            <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%;">
+                <div class="user-info" style="flex: 1; min-width: 0;">
+                    <span style="font-weight: 700; font-size: 1.25rem; color: var(--text-main); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block;">{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ .sId }}{{ end }}</span>
+                </div>
+                <div style="display: flex; align-items: center; gap: 12px; flex-shrink: 0;">
+                    <a href="{{ .subSupportUrl }}" target="_blank" style="display:flex; align-items:center; gap:6px; background:var(--glass-bg); border:1px solid var(--glass-border); backdrop-filter:var(--glass-blur); -webkit-backdrop-filter:var(--glass-blur); color:var(--text-main); text-decoration:none; padding:8px 16px; border-radius:var(--radius-md); font-weight:500; font-size:0.875rem; transition: transform 0.2s;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        Support
+                    </a>
+                    <button id="theme-toggle" class="icon-btn">
+                    <svg class="theme-icon-light" style="display:none;" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <svg class="theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- Client Profile Section -->
+        <div class="profile-card glass-pane" style="display: flex; align-items: center; gap: 16px; padding: 16px 24px; margin-top: 16px; margin-bottom: 8px; border-radius: var(--radius-md);">
+            <div class="avatar" id="user-avatar" style="min-width: 48px; width: 48px; height: 48px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 1.25rem; background: var(--success); color: white;">N</div>
+            <div style="overflow: hidden; flex: 1;">
+                <div style="font-size: 0.8rem; color: var(--text-sub); text-transform: uppercase; letter-spacing: 0.05em;">Client Profile</div>
+                <div id="display-name" style="font-size: 1.1rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 2px;">{{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}</div>
+            </div>
+        </div>
+
+        <!-- Hero Card (Remaining Traffic) -->
+        <section class="hero-card glass-pane">
+            <div class="hero-header">
+                <h2>Remaining Traffic</h2>
+                <span class="badge {{ if .enabled }}badge-success{{ else }}badge-danger{{ end }}">
+                    {{ if .enabled }}Active{{ else }}Disabled{{ end }}
+                </span>
+            </div>
+            
+            <div class="hero-main">
+                <span id="hero-rem-val" class="hero-val">-</span>
+                <span id="hero-rem-unit" class="hero-unit"></span>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-track">
+                    <div class="progress-fill" id="progress-bar"></div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-box">
+                    <span class="stat-label">Total Used</span>
+                    <span class="stat-val">{{ .used }}</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-label">Days Left</span>
+                    <span class="stat-val" id="days-left">-</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Advanced Info Accordion -->
+        <section class="glass-pane accordion" id="adv-accordion">
+            <button class="accordion-header" onclick="document.getElementById('adv-accordion').classList.toggle('open')">
+                Advanced Information
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="acc-icon"><polyline points="6 9 12 15 18 9"></polyline></svg>
+            </button>
+            <div class="accordion-content">
+                <div class="stat-row"><span>Status</span> <b>{{ if .enabled }}Active{{ else }}Disabled{{ end }}</b></div>
+                <div class="stat-row"><span>Max Allowed</span> <b>{{ .total }}</b></div>
+                <div class="stat-row"><span>Uploaded</span> <b>{{ .upload }}</b></div>
+                <div class="stat-row"><span>Downloaded</span> <b>{{ .download }}</b></div>
+                <div class="stat-row"><span>Expiration</span> <b id="adv-expiry">{{ .expire }}</b></div>
+            </div>
+        </section>
+        
+        <!-- Configurations -->
+        <h3 style="font-size: 1rem; font-weight: 500; margin: 24px 0 12px 12px;">Configurations</h3>
+        <div class="config-list">
+            
+            <!-- Hidden raw links for JS to parse -->
+            <div id="raw-links-container" style="display:none;">
+                {{ range .links }}
+                <div class="raw-link">{{ . }}</div>
+                {{ end }}
+            </div>
+            <div id="configs-container" class="config-list-container" style="display:flex; flex-direction:column; gap:16px;"></div>
+    
+        </div>
+
+        <div class="footer">
+            <span class="theme-credit">Subscription Theme</span>
+        </div>
+    </div>
+    
+    <!-- Quick Actions Pill -->
+    <div class="quick-actions-pill glass-pane" onclick="document.getElementById('action-modal').classList.add('open')">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+        <span>Quick Actions</span>
+    </div>
+
+    <!-- Quick Actions Modal -->
+    <div class="modal" id="action-modal">
+        <div class="modal-content glass-pane">
+            <div class="modal-header">
+                <h3 style="font-size: 1.25rem; font-weight: 600; margin: 0;">Quick Actions</h3>
+                <button class="icon-btn" onclick="document.getElementById('action-modal').classList.remove('open')">✕</button>
+            </div>
+            <button class="btn glass-btn" style="margin-bottom: 12px; display:flex; justify-content:center;" onclick="copyToClipboard('{{ .subUrl }}', 'URL Copied!')">Copy Subscription Link</button>
+            <a href="v2rayng://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="btn glass-btn" style="margin-bottom: 12px; text-decoration:none; display:flex; justify-content:center;">Import to V2RayNG / v2rayN</a>
+            <a href="v2ray://install-sub?url={{ .subUrl }}&name={{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}" class="btn glass-btn" style="text-decoration:none; display:flex; justify-content:center;">Import to Shadowrocket / iOS</a>
+            <a class="modal-btn" style="text-decoration:none; background: var(--success); color: white; margin-top: 12px;" href="{{ .subSupportUrl }}" target="_blank">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Contact Support
+            </a>
+        </div>
+    </div>
+
+    <!-- QR Code Modal -->
+    <div class="modal" id="qr-modal">
+        <div class="modal-content glass-pane" style="text-align:center; display:flex; flex-direction:column; align-items:center;">
+            <h3 id="qr-title" style="margin-bottom:16px; font-size:1rem; word-break:break-all;"></h3>
+            <div style="background:white; padding:16px; border-radius:24px;"><canvas id="qr-canvas"></canvas></div>
+            <button class="btn glass-btn" style="margin-top:24px; width:100%;" onclick="document.getElementById('qr-modal').classList.remove('open')">Close</button>
+        </div>
+    </div>
+
+    <!-- Toast -->
+    <div id="toast" class="toast glass-pane" style="display:none;"></div>
+
+    <script src="assets/js/app.js"></script>
+</body>
+</html>

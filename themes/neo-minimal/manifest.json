@@ -1,0 +1,14 @@
+{
+  "id": "neo-minimal",
+  "type": "theme",
+  "name": "Neo Minimal",
+  "version": "1.2.0",
+  "author": "Theme Pack",
+  "description": "Minimal, high-contrast subscription page theme for 3x-ui.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "Widget Aesthetic",
+    "Dark Mode Default",
+    "High Contrast Typography"
+  ]
+}
