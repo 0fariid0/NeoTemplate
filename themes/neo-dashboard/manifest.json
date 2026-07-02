@@ -2,9 +2,9 @@
   "id": "neo-dashboard",
   "type": "theme",
   "name": "Neo Dashboard",
-  "version": "1.2.3",
+  "version": "1.2.5",
   "author": "Theme Pack",
-  "description": "Premium mobile dashboard with bulk QR, Jalali expiry, app import and downloads.",
+  "description": "Premium mobile dashboard with dark mode and Persian as first-visit defaults, bulk QR, Jalali expiry, app import and downloads.",
   "minPanelVersion": "2.0.0",
   "features": [
     "Data Chart UI",
@@ -15,6 +15,9 @@
     "Last Day Hour/Minute Countdown",
     "Direct App Import",
     "Streisand Import",
-    "Client App Downloads"
+    "Client App Downloads",
+    "Persian Default Language",
+    "Dark Default Theme",
+    "First Visit Persian RTL"
   ]
 }

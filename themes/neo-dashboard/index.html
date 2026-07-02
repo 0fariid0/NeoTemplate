@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fa" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -622,8 +622,9 @@ function initThemeToggle() {
     if (savedTheme) {
         applyTheme(savedTheme === 'theme-dark');
     } else {
-        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-        applyTheme(prefersDark);
+        // First visit default: always open Neo Dashboard in dark mode.
+        // After the user changes it, the saved preference is respected.
+        applyTheme(true);
     }
 
     toggleBtn.addEventListener('click', () => {
@@ -1254,11 +1255,11 @@ document.addEventListener('click', function(e) {
         btn.style.borderRadius = '99px';
         btn.style.cursor = 'pointer';
         
-        const currentLang = localStorage.getItem('neo-lang') || 'en';
+        const currentLang = localStorage.getItem('neo-lang') || 'fa';
         btn.innerText = currentLang === 'en' ? 'FA' : 'EN';
         
         btn.addEventListener('click', () => {
-            const nextLang = localStorage.getItem('neo-lang') === 'fa' ? 'en' : 'fa';
+            const nextLang = (localStorage.getItem('neo-lang') || 'fa') === 'fa' ? 'en' : 'fa';
             localStorage.setItem('neo-lang', nextLang);
             btn.innerText = nextLang === 'en' ? 'FA' : 'EN';
             
@@ -1275,7 +1276,7 @@ document.addEventListener('click', function(e) {
     const originalShowNotification = window.showNotification;
     if (typeof originalShowNotification === 'function') {
         window.showNotification = function(msg, type) {
-            const currentLang = localStorage.getItem('neo-lang') || 'en';
+            const currentLang = localStorage.getItem('neo-lang') || 'fa';
             if (currentLang === 'fa' && translations[msg]) {
                 msg = translations[msg];
             }
@@ -1286,7 +1287,7 @@ document.addEventListener('click', function(e) {
     const originalCopyToClipboard = window.copyToClipboard;
     if (typeof originalCopyToClipboard === 'function') {
         window.copyToClipboard = function(text, msg) {
-            const currentLang = localStorage.getItem('neo-lang') || 'en';
+            const currentLang = localStorage.getItem('neo-lang') || 'fa';
             if (currentLang === 'fa' && translations[msg]) {
                 msg = translations[msg];
             }
@@ -1297,8 +1298,11 @@ document.addEventListener('click', function(e) {
     function run() {
         injectAssets();
         initLangButton();
+        if (!localStorage.getItem('neo-lang')) {
+            localStorage.setItem('neo-lang', 'fa');
+        }
         
-        const currentLang = localStorage.getItem('neo-lang') || 'en';
+        const currentLang = localStorage.getItem('neo-lang') || 'fa';
         if (currentLang === 'fa') {
             translateDOM('fa');
         }
@@ -1314,7 +1318,7 @@ document.addEventListener('click', function(e) {
     if (typeof originalRenderConfigs === 'function') {
         window.renderConfigs = function() {
             originalRenderConfigs();
-            const currentLang = localStorage.getItem('neo-lang') || 'en';
+            const currentLang = localStorage.getItem('neo-lang') || 'fa';
             if (currentLang === 'fa') {
                 translateDOM('fa');
             }

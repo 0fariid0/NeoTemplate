@@ -73,9 +73,9 @@
     {
       "id": "neo-dashboard",
       "name": "Neo Dashboard",
-      "description": "Dashboard-style subscription page theme with bulk QR, Jalali expiry, app import and downloads.",
+      "description": "Dashboard-style subscription page theme with dark and Persian first-visit defaults, bulk QR, Jalali expiry, app import and downloads.",
       "type": "theme",
-      "latest": "1.2.3",
+      "latest": "1.2.5",
       "versions": {
         "1.2.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
@@ -92,6 +92,14 @@
         "1.2.3": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
           "checksum": "3c239e40b89fe6d201724cba1657929c5c0d0ac76c5d331d783ee63415733e6e"
+        },
+        "1.2.4": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "4bf271310c402276ae538d44a04bd25bd5c51d27303c50370e5dc56389befffe"
+        },
+        "1.2.5": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "57fb1d9fa41ed97c6c2e39d0865d024448372a1e8304f27bf2145e809f259b42"
         }
       }
     }
