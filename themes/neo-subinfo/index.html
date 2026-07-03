@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Neo Sub Info</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrious/4.0.2/qrious.min.js"></script>
+  <style>
+    :root{
+      --bg:#080b12;--card:#111827;--card2:#172033;--muted:#94a3b8;--text:#f8fafc;
+      --line:rgba(255,255,255,.08);--accent:#22d3ee;--accent2:#8b5cf6;--good:#22c55e;--bad:#ef4444;--warn:#f59e0b;
+      --shadow:0 24px 70px rgba(0,0,0,.35);--r:26px;--r2:18px;
+      font-family: Vazirmatn, IRANSans, Segoe UI, Tahoma, Arial, sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}body{min-height:100vh;background:radial-gradient(circle at 20% -10%,rgba(34,211,238,.18),transparent 34%),radial-gradient(circle at 90% 10%,rgba(139,92,246,.18),transparent 30%),var(--bg);color:var(--text);font-family:inherit;-webkit-font-smoothing:antialiased}.wrap{max-width:620px;margin:0 auto;min-height:100vh;padding:18px 16px 110px}.top{position:sticky;top:0;z-index:30;margin:-18px -16px 18px;padding:18px 16px 12px;background:linear-gradient(180deg,var(--bg) 0%,rgba(8,11,18,.92) 75%,rgba(8,11,18,0) 100%);backdrop-filter:blur(18px)}.head{display:flex;align-items:center;justify-content:space-between;gap:12px}.profile{display:flex;align-items:center;gap:12px;min-width:0}.avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:900;color:#fff;box-shadow:0 0 28px rgba(34,211,238,.22)}.name{font-size:1.08rem;font-weight:900;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:360px}.state{font-size:.78rem;color:var(--muted);display:flex;align-items:center;gap:6px;margin-top:3px}.dot{width:8px;height:8px;border-radius:50%;background:var(--bad);box-shadow:0 0 12px var(--bad)}.dot.ok{background:var(--good);box-shadow:0 0 12px var(--good)}.btn,.mini{border:1px solid var(--line);background:rgba(255,255,255,.06);color:var(--text);border-radius:16px;padding:12px 14px;font-family:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:.18s transform,.18s background}.btn:hover,.mini:hover{transform:translateY(-1px);background:rgba(255,255,255,.1)}.mini{width:42px;height:42px;padding:0;border-radius:50%;flex:0 0 auto}.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,rgba(255,255,255,.075),rgba(255,255,255,.035));border:1px solid var(--line);border-radius:var(--r);padding:24px;box-shadow:var(--shadow);margin-bottom:16px}.hero:before{content:"";position:absolute;inset:-70px auto auto 50%;width:220px;height:220px;transform:translateX(-50%);background:var(--accent);opacity:.16;filter:blur(55px);border-radius:50%}.hero-title{position:relative;text-align:center;color:var(--muted);font-weight:900;letter-spacing:.08em;font-size:.76rem;margin-bottom:20px;text-transform:uppercase}.ring{position:relative;width:184px;height:184px;margin:0 auto 22px}.ring svg{width:100%;height:100%;transform:rotate(-90deg)}.ring .bg{fill:none;stroke:rgba(255,255,255,.08);stroke-width:7}.ring .fg{fill:none;stroke:url(#grad);stroke-width:7;stroke-linecap:round;stroke-dasharray:339.292;stroke-dashoffset:339.292;transition:stroke-dashoffset 1s ease;filter:drop-shadow(0 0 8px rgba(34,211,238,.7))}.ring-info{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column}.percent{font-size:2.2rem;font-weight:950;letter-spacing:-.04em}.percent small{font-size:.85rem;color:var(--muted);margin-right:3px}.ring-label{font-size:.78rem;color:var(--muted);font-weight:800}.grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}.stat{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:18px;padding:14px;min-width:0}.stat span{display:block;color:var(--muted);font-size:.76rem;font-weight:800;margin-bottom:7px}.stat b{display:block;font-size:.98rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.card{background:rgba(17,24,39,.72);border:1px solid var(--line);border-radius:var(--r);padding:18px;box-shadow:0 18px 55px rgba(0,0,0,.22);margin-bottom:16px}.card-title{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:14px}.card-title h2{font-size:1rem;font-weight:950}.pill{font-size:.72rem;color:#08111a;background:linear-gradient(135deg,var(--accent),#67e8f9);font-weight:950;border-radius:999px;padding:7px 10px}.actions{display:grid;grid-template-columns:1fr 1fr;gap:10px}.primary{background:linear-gradient(135deg,var(--accent),var(--accent2));border:0;color:white}.good{background:linear-gradient(135deg,#22c55e,#14b8a6);border:0;color:white}.list{display:flex;flex-direction:column;gap:10px}.link-row{display:grid;grid-template-columns:auto 1fr auto auto;gap:10px;align-items:center;background:rgba(255,255,255,.05);border:1px solid var(--line);border-radius:18px;padding:10px}.proto{width:42px;height:42px;border-radius:14px;background:rgba(34,211,238,.12);color:#67e8f9;font-weight:950;display:flex;align-items:center;justify-content:center;font-size:.72rem;text-transform:uppercase}.link-text{min-width:0}.link-name{font-weight:900;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.link-sub{font-size:.74rem;color:var(--muted);margin-top:2px;direction:ltr;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.icon-action{width:38px;height:38px;border:1px solid var(--line);background:rgba(255,255,255,.055);color:var(--text);border-radius:14px;cursor:pointer;font-weight:900}.apps{display:grid;grid-template-columns:1fr 1fr;gap:10px}.app-btn{background:rgba(255,255,255,.055);border:1px solid var(--line);border-radius:18px;padding:14px;text-decoration:none;color:var(--text);font-weight:950;text-align:center;cursor:pointer}.app-btn small{display:block;margin-top:4px;color:var(--muted);font-weight:700;font-size:.72rem}.bottom{position:fixed;left:50%;bottom:16px;transform:translateX(-50%);width:min(620px,calc(100% - 32px));display:grid;grid-template-columns:1fr 1fr;gap:10px;z-index:40}.toast{position:fixed;top:18px;left:50%;transform:translateX(-50%) translateY(-20px);background:#0f172a;border:1px solid var(--line);border-radius:999px;padding:12px 16px;color:white;font-weight:900;box-shadow:var(--shadow);opacity:0;pointer-events:none;transition:.2s;z-index:100}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}.modal{position:fixed;inset:0;background:rgba(0,0,0,.68);backdrop-filter:blur(10px);z-index:90;display:none;align-items:center;justify-content:center;padding:20px}.modal.show{display:flex}.modal-box{width:min(420px,100%);background:#0f172a;border:1px solid var(--line);border-radius:26px;padding:20px;text-align:center;box-shadow:var(--shadow)}.modal-box h3{font-size:1rem;margin-bottom:14px}.qr-wrap{background:white;border-radius:18px;padding:16px;display:inline-block}.empty{color:var(--muted);text-align:center;padding:20px 6px}.support{margin-top:12px;width:100%}.hidden-store{display:none}@media(max-width:420px){.wrap{padding-inline:12px}.top{margin-inline:-12px;padding-inline:12px}.hero{padding:20px}.grid,.actions,.apps{grid-template-columns:1fr}.ring{width:170px;height:170px}.name{max-width:250px}.bottom{grid-template-columns:1fr;bottom:10px}.link-row{grid-template-columns:auto 1fr auto}.link-row .icon-action.qr-small{display:none}}
+  </style>
+</head>
+<body>
+  <div id="toast" class="toast">کپی شد</div>
+  <div id="raw" class="hidden-store"
+       data-up="{{ .uploadByte }}"
+       data-down="{{ .downloadByte }}"
+       data-total="{{ .totalByte }}"
+       data-expire="{{ .expire }}"
+       data-sub-url="{{ .subUrl }}"
+       data-title="{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}{{ end }}">
+    {{ range .links }}<textarea class="raw-link">{{ . }}</textarea>{{ end }}
+  </div>
+
+  <div class="wrap">
+    <div class="top">
+      <div class="head">
+        <div class="profile">
+          <div class="avatar" id="avatar">N</div>
+          <div style="min-width:0">
+            <div class="name">{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}{{ end }}</div>
+            <div class="state"><i class="dot {{ if .enabled }}ok{{ end }}"></i>{{ if .enabled }}فعال{{ else }}غیرفعال{{ end }}</div>
+          </div>
+        </div>
+        <button class="mini" onclick="copyText(getSubUrl(), 'لینک اشتراک کپی شد')" title="کپی لینک اشتراک">⛓</button>
+      </div>
+    </div>
+
+    <section class="hero">
+      <div class="hero-title">داشبورد اشتراک</div>
+      <div class="ring">
+        <svg viewBox="0 0 120 120" aria-hidden="true">
+          <defs><linearGradient id="grad" x1="0" x2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#8b5cf6"/></linearGradient></defs>
+          <circle class="bg" cx="60" cy="60" r="54"></circle>
+          <circle id="circle" class="fg" cx="60" cy="60" r="54"></circle>
+        </svg>
+        <div class="ring-info"><div class="percent"><span id="pct">0</span><small>%</small></div><div class="ring-label">مصرف شده</div></div>
+      </div>
+      <div class="grid">
+        <div class="stat"><span>مصرف شده</span><b id="used">-</b></div>
+        <div class="stat"><span>حجم کلی</span><b id="total">{{ if eq .totalByte 0 }}نامحدود{{ else }}{{ .total }}{{ end }}</b></div>
+        <div class="stat"><span>باقی‌مانده</span><b id="remain">-</b></div>
+        <div class="stat"><span>انقضا</span><b id="expire">-</b></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="card-title"><h2>لینک‌های کانفیگ</h2><span class="pill" id="count">0 لینک</span></div>
+      <div class="actions" style="margin-bottom:12px">
+        <button class="btn primary" onclick="copyAllLinks()">کپی همه لینک‌ها</button>
+        <button class="btn" onclick="showQR(allLinks().join('\n'), 'QR همه لینک‌ها')">QR همه لینک‌ها</button>
+      </div>
+      <div id="links" class="list"><div class="empty">لینکی برای نمایش وجود ندارد</div></div>
+    </section>
+
+    <section class="card">
+      <div class="card-title"><h2>ورود مستقیم به برنامه</h2><span class="pill">Import</span></div>
+      <div class="apps">
+        <button class="app-btn" onclick="openImport('streisand')">Streisand<small>iPhone / iPad</small></button>
+        <button class="app-btn" onclick="openImport('hiddify')">Hiddify<small>Android / iOS / Desktop</small></button>
+        <button class="app-btn" onclick="openImport('v2rayng')">V2RayNG<small>Android</small></button>
+        <button class="app-btn" onclick="openImport('v2rayn')">v2rayN<small>Windows</small></button>
+        <button class="app-btn" onclick="openImport('singbox')">Sing-box<small>Remote Profile</small></button>
+        <button class="app-btn" onclick="openImport('shadowrocket')">Shadowrocket<small>iOS</small></button>
+      </div>
+      <a class="btn good support" href="{{ .subSupportUrl }}" target="_blank" rel="noopener">پشتیبانی</a>
+    </section>
+  </div>
+
+  <div class="bottom">
+    <button class="btn primary" onclick="copyText(getSubUrl(), 'لینک اشتراک کپی شد')">کپی لینک اشتراک</button>
+    <button class="btn good" onclick="copyAllLinks()">کپی همه کانفیگ‌ها</button>
+  </div>
+
+  <div id="qrModal" class="modal" onclick="if(event.target.id==='qrModal') closeQR()">
+    <div class="modal-box">
+      <h3 id="qrTitle">QR Code</h3>
+      <div id="qrTarget" class="qr-wrap"><canvas id="qrCanvas"></canvas></div>
+      <p id="qrFallback" style="display:none;color:var(--muted);font-size:.85rem;line-height:1.8;margin-top:10px">ساخت QR برای این مقدار ممکن نشد. از دکمه کپی استفاده کنید.</p>
+      <button class="btn primary" style="width:100%;margin-top:14px" onclick="closeQR()">بستن</button>
+    </div>
+  </div>
+
+  <script>
+    const raw = document.getElementById('raw');
+    const n = (v) => { const x = Number(String(v || '0').replace(/[^0-9.]/g,'')); return Number.isFinite(x) ? x : 0; };
+    const up = n(raw.dataset.up), down = n(raw.dataset.down), totalBytes = n(raw.dataset.total), usedBytes = up + down;
+    const expireSeconds = n(raw.dataset.expire);
+    const title = (raw.dataset.title || 'N').trim();
+    const subUrl = raw.dataset.subUrl || window.location.href;
+    document.getElementById('avatar').textContent = (title[0] || 'N').toUpperCase();
+
+    function allLinks(){ return Array.from(document.querySelectorAll('.raw-link')).map(x => x.value.trim()).filter(Boolean); }
+    function getSubUrl(){ return subUrl || window.location.href; }
+    function fmtBytes(bytes){
+      bytes = Number(bytes || 0);
+      if (!bytes) return '0 B';
+      const units = ['B','KB','MB','GB','TB','PB']; let i = 0;
+      while(bytes >= 1024 && i < units.length - 1){ bytes /= 1024; i++; }
+      return (bytes >= 10 || i === 0 ? bytes.toFixed(0) : bytes.toFixed(1)) + ' ' + units[i];
+    }
+    function faDate(seconds){
+      if(!seconds) return 'بدون محدودیت';
+      try { return new Intl.DateTimeFormat('fa-IR-u-ca-persian',{year:'numeric',month:'long',day:'numeric'}).format(new Date(seconds*1000)); }
+      catch(e){ return new Date(seconds*1000).toLocaleDateString('fa-IR'); }
+    }
+    function remainText(seconds){
+      if(!seconds) return 'نامحدود';
+      const diff = seconds*1000 - Date.now();
+      if(diff <= 0) return 'منقضی شده';
+      const min = Math.floor(diff / 60000);
+      if(diff < 86400000){
+        const h = Math.floor(min/60), m = min % 60;
+        if(h > 0) return `${h} ساعت و ${m} دقیقه`;
+        return `${Math.max(m,1)} دقیقه`;
+      }
+      return Math.ceil(diff / 86400000) + ' روز';
+    }
+    function protocolName(link){
+      const p = (link.split('://')[0] || 'link').replace('shadowsocks','ss');
+      return p.slice(0,7);
+    }
+    function showToast(msg){
+      const t = document.getElementById('toast');
+      t.textContent = msg || 'کپی شد'; t.classList.add('show');
+      clearTimeout(showToast.timer); showToast.timer = setTimeout(()=>t.classList.remove('show'), 1800);
+    }
+    async function copyText(text, msg){
+      try{ await navigator.clipboard.writeText(text); showToast(msg || 'کپی شد'); }
+      catch(e){ const ta=document.createElement('textarea'); ta.value=text; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); showToast(msg || 'کپی شد'); }
+    }
+    function copyAllLinks(){ const links = allLinks(); copyText(links.join('\n'), links.length ? 'همه لینک‌ها کپی شد' : 'لینکی وجود ندارد'); }
+    function showQR(value, title){
+      const modal = document.getElementById('qrModal'), fallback = document.getElementById('qrFallback'), canvas = document.getElementById('qrCanvas');
+      document.getElementById('qrTitle').textContent = title || 'QR Code'; fallback.style.display='none'; canvas.style.display='block'; modal.classList.add('show');
+      try{
+        if(!value) throw new Error('empty');
+        if(typeof QRious === 'undefined') throw new Error('no qr lib');
+        new QRious({element: canvas, value, size: 244, level: 'M'});
+      }catch(e){ canvas.style.display='none'; fallback.style.display='block'; }
+    }
+    function closeQR(){ document.getElementById('qrModal').classList.remove('show'); }
+    function openImport(app){
+      const encoded = encodeURIComponent(getSubUrl()); const name = encodeURIComponent(title || 'Subscription');
+      const schemes = {
+        streisand: `streisand://import/${encoded}#${name}`,
+        hiddify: `hiddify://import/${encoded}`,
+        v2rayng: `v2rayng://install-sub?url=${encoded}&name=${name}`,
+        v2rayn: `v2ray://install-sub?url=${encoded}&name=${name}`,
+        singbox: `sing-box://import-remote-profile?url=${encoded}`,
+        shadowrocket: `shadowrocket://add/sub://${encoded}?remark=${name}`
+      };
+      copyText(getSubUrl(), 'لینک اشتراک کپی شد');
+      setTimeout(()=>{ window.location.href = schemes[app] || getSubUrl(); }, 120);
+    }
+    function render(){
+      const pct = totalBytes > 0 ? Math.min(Math.round((usedBytes / totalBytes) * 100), 100) : 0;
+      document.getElementById('pct').textContent = pct;
+      document.getElementById('circle').style.strokeDashoffset = 339.292 - (339.292 * pct / 100);
+      document.getElementById('used').textContent = fmtBytes(usedBytes);
+      document.getElementById('total').textContent = totalBytes ? fmtBytes(totalBytes) : 'نامحدود';
+      document.getElementById('remain').textContent = totalBytes ? fmtBytes(Math.max(totalBytes - usedBytes, 0)) : 'نامحدود';
+      document.getElementById('expire').textContent = expireSeconds ? `${faDate(expireSeconds)} · ${remainText(expireSeconds)}` : 'بدون محدودیت';
+      const links = allLinks(); document.getElementById('count').textContent = `${links.length} لینک`;
+      const box = document.getElementById('links'); box.innerHTML = '';
+      if(!links.length){ box.innerHTML = '<div class="empty">لینکی برای نمایش وجود ندارد</div>'; return; }
+      links.forEach((link, i)=>{
+        const row = document.createElement('div'); row.className='link-row';
+        const safeName = (()=>{try{return decodeURIComponent((link.split('#')[1]||`کانفیگ ${i+1}`).replace(/\+/g,' ')).slice(0,80)}catch(e){return `کانفیگ ${i+1}`}})();
+        row.innerHTML = `<div class="proto">${protocolName(link)}</div><div class="link-text"><div class="link-name">${safeName}</div><div class="link-sub">${link}</div></div><button class="icon-action" title="کپی">⧉</button><button class="icon-action qr-small" title="QR">▦</button>`;
+        row.querySelectorAll('button')[0].onclick = () => copyText(link, 'کانفیگ کپی شد');
+        row.querySelectorAll('button')[1].onclick = () => showQR(link, safeName);
+        box.appendChild(row);
+      });
+    }
+    render();
+    setInterval(()=>{ document.getElementById('expire').textContent = expireSeconds ? `${faDate(expireSeconds)} · ${remainText(expireSeconds)}` : 'بدون محدودیت'; }, 60000);
+  </script>
+</body>
+</html>

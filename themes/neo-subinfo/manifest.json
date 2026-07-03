@@ -1,0 +1,18 @@
+{
+  "id": "neo-subinfo",
+  "type": "theme",
+  "name": "Neo Sub Info",
+  "version": "1.0.0",
+  "description": "Persian dark subscription dashboard converted for 3x-ui static subscription templates.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "Persian RTL",
+    "Dark Dashboard UI",
+    "Traffic Summary",
+    "Jalali Expiration Date",
+    "Last Day Hour/Minute Countdown",
+    "Copy All Configs",
+    "QR for Configs",
+    "Direct App Import"
+  ]
+}
