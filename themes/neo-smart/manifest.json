@@ -1,0 +1,18 @@
+{
+  "id": "neo-smart",
+  "type": "theme",
+  "name": "Neo Smart",
+  "version": "1.0.0",
+  "description": "Smart multilingual subscription dashboard with automatic operating-system detection and app downloads.",
+  "minPanelVersion": "2.0.0",
+  "features": [
+    "Persian Default",
+    "Automatic OS Detection",
+    "App Downloads",
+    "Direct App Import",
+    "Traffic Summary",
+    "Config QR",
+    "Copy Configs",
+    "Light and Dark Modes"
+  ]
+}

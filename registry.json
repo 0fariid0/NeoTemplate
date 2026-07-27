@@ -1,120 +1,133 @@
 {
-    "version": "1.3.0",
-    "manager": {
-        "version": "1.2.0",
-        "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
-    },
-    "packages": [
-        {
-            "id": "neo-default",
-            "name": "Neo Default",
-            "description": "Clean, modern and lightweight subscription page theme.",
-            "type": "theme",
-            "latest": "1.2.0",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-default.zip",
-                    "checksum": "7031613ef195c8554169b639019585e972e859250a7daf1b08e9a4626c9c07cc"
-                }
-            }
-        },
-        {
-            "id": "neo-eclipse",
-            "name": "Neo Eclipse",
-            "description": "Dark, structured and professional subscription page theme.",
-            "type": "theme",
-            "latest": "1.2.0",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-eclipse.zip",
-                    "checksum": "3d702f22672531f15691047a2e099acc09cab7599b5e591c1484050bb793df62"
-                }
-            }
-        },
-        {
-            "id": "neo-glass",
-            "name": "Neo Glass",
-            "description": "Glassmorphism subscription page theme with soft gradients.",
-            "type": "theme",
-            "latest": "1.2.0",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-glass.zip",
-                    "checksum": "597f338df1fc3af874cfa0fb71f5568afba5e4c67a7d9311a0e976ab39b3ac98"
-                }
-            }
-        },
-        {
-            "id": "neo-minimal",
-            "name": "Neo Minimal",
-            "description": "Minimal, high-contrast subscription page theme.",
-            "type": "theme",
-            "latest": "1.2.0",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-minimal.zip",
-                    "checksum": "75647c2a45fb2946107444cdf2c545ddde1dd550ac00e5a89832493353f7453c"
-                }
-            }
-        },
-        {
-            "id": "neo-vibrant",
-            "name": "Neo Vibrant",
-            "description": "Vibrant neon subscription page theme with strong mobile layout.",
-            "type": "theme",
-            "latest": "1.2.0",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-vibrant.zip",
-                    "checksum": "10127933984f56cdd845219acc8cd5917105eaca9689cc588b7f9007db621f54"
-                }
-            }
-        },
-        {
-            "id": "neo-dashboard",
-            "name": "Neo Dashboard",
-            "description": "Dashboard-style subscription page theme with dark and Persian first-visit defaults, bulk QR, Jalali expiry, app import and downloads.",
-            "type": "theme",
-            "latest": "1.2.5",
-            "versions": {
-                "1.2.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "cc83af9cc6b31a46713f81c0edf8d9747827e0ef027995a5f1a55b1271c5e191"
-                },
-                "1.2.1": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "0fcdb0572b98f7bf428a60adb43313f1b3726788a9f0699e8690ae3a28fe0a5a"
-                },
-                "1.2.2": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "44ae2138c1e8fd41794ac0cc3a24f733e6c2feac4f590a2cf890921551377d30"
-                },
-                "1.2.3": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "3c239e40b89fe6d201724cba1657929c5c0d0ac76c5d331d783ee63415733e6e"
-                },
-                "1.2.4": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "4bf271310c402276ae538d44a04bd25bd5c51d27303c50370e5dc56389befffe"
-                },
-                "1.2.5": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
-                    "checksum": "57fb1d9fa41ed97c6c2e39d0865d024448372a1e8304f27bf2145e809f259b42"
-                }
-            }
-        },
-        {
-            "id": "neo-subinfo",
-            "name": "Neo Sub Info",
-            "description": "Persian dark subscription dashboard converted for 3x-ui static subscription templates.",
-            "type": "theme",
-            "latest": "1.0.0",
-            "versions": {
-                "1.0.0": {
-                    "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-subinfo.zip",
-                    "checksum": "f27b69c31681efbd55db62ad729a6f00c96ef83c72e3f480ddee7cf27eca2a1f"
-                }
-            }
+  "version": "1.4.0",
+  "manager": {
+    "version": "1.2.0",
+    "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
+  },
+  "packages": [
+    {
+      "id": "neo-default",
+      "name": "Neo Default",
+      "description": "Clean, modern and lightweight subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-default.zip",
+          "checksum": "7031613ef195c8554169b639019585e972e859250a7daf1b08e9a4626c9c07cc"
         }
-    ]
+      }
+    },
+    {
+      "id": "neo-eclipse",
+      "name": "Neo Eclipse",
+      "description": "Dark, structured and professional subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-eclipse.zip",
+          "checksum": "3d702f22672531f15691047a2e099acc09cab7599b5e591c1484050bb793df62"
+        }
+      }
+    },
+    {
+      "id": "neo-glass",
+      "name": "Neo Glass",
+      "description": "Glassmorphism subscription page theme with soft gradients.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-glass.zip",
+          "checksum": "597f338df1fc3af874cfa0fb71f5568afba5e4c67a7d9311a0e976ab39b3ac98"
+        }
+      }
+    },
+    {
+      "id": "neo-minimal",
+      "name": "Neo Minimal",
+      "description": "Minimal, high-contrast subscription page theme.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-minimal.zip",
+          "checksum": "75647c2a45fb2946107444cdf2c545ddde1dd550ac00e5a89832493353f7453c"
+        }
+      }
+    },
+    {
+      "id": "neo-vibrant",
+      "name": "Neo Vibrant",
+      "description": "Vibrant neon subscription page theme with strong mobile layout.",
+      "type": "theme",
+      "latest": "1.2.0",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-vibrant.zip",
+          "checksum": "10127933984f56cdd845219acc8cd5917105eaca9689cc588b7f9007db621f54"
+        }
+      }
+    },
+    {
+      "id": "neo-dashboard",
+      "name": "Neo Dashboard",
+      "description": "Dashboard-style subscription page theme with dark and Persian first-visit defaults, bulk QR, Jalali expiry, app import and downloads.",
+      "type": "theme",
+      "latest": "1.2.5",
+      "versions": {
+        "1.2.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "cc83af9cc6b31a46713f81c0edf8d9747827e0ef027995a5f1a55b1271c5e191"
+        },
+        "1.2.1": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "0fcdb0572b98f7bf428a60adb43313f1b3726788a9f0699e8690ae3a28fe0a5a"
+        },
+        "1.2.2": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "44ae2138c1e8fd41794ac0cc3a24f733e6c2feac4f590a2cf890921551377d30"
+        },
+        "1.2.3": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "3c239e40b89fe6d201724cba1657929c5c0d0ac76c5d331d783ee63415733e6e"
+        },
+        "1.2.4": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "4bf271310c402276ae538d44a04bd25bd5c51d27303c50370e5dc56389befffe"
+        },
+        "1.2.5": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-dashboard.zip",
+          "checksum": "57fb1d9fa41ed97c6c2e39d0865d024448372a1e8304f27bf2145e809f259b42"
+        }
+      }
+    },
+    {
+      "id": "neo-subinfo",
+      "name": "Neo Sub Info",
+      "description": "Persian dark subscription dashboard converted for 3x-ui static subscription templates.",
+      "type": "theme",
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-subinfo.zip",
+          "checksum": "f27b69c31681efbd55db62ad729a6f00c96ef83c72e3f480ddee7cf27eca2a1f"
+        }
+      }
+    },
+    {
+      "id": "neo-smart",
+      "name": "Neo Smart",
+      "description": "Smart multilingual subscription dashboard with automatic OS detection, app downloads and direct imports.",
+      "type": "theme",
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
+          "checksum": "a5c002463ec22c19dd071356a14f1e08d2f5c6dc40b633020fc8cc6c1b4b696f"
+        }
+      }
+    }
+  ]
 }
