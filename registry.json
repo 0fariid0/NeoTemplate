@@ -1,5 +1,5 @@
 {
-  "version": "1.4.0",
+  "version": "1.4.1",
   "manager": {
     "version": "1.2.0",
     "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
@@ -119,13 +119,17 @@
     {
       "id": "neo-smart",
       "name": "Neo Smart",
-      "description": "Smart multilingual subscription dashboard with automatic OS detection, app downloads and direct imports.",
+      "description": "Smart multilingual subscription dashboard compatible with modern 3x-ui custom-page data injection, automatic OS detection, app downloads and direct imports.",
       "type": "theme",
-      "latest": "1.0.0",
+      "latest": "1.0.1",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
           "checksum": "a5c002463ec22c19dd071356a14f1e08d2f5c6dc40b633020fc8cc6c1b4b696f"
+        },
+        "1.0.1": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
+          "checksum": "5227650a5d9a98e07b26cad0c18e95412be202ef60b2b01d339dc13bbc523fef"
         }
       }
     }

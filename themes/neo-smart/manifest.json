@@ -2,8 +2,8 @@
   "id": "neo-smart",
   "type": "theme",
   "name": "Neo Smart",
-  "version": "1.0.0",
-  "description": "Smart multilingual subscription dashboard with automatic operating-system detection and app downloads.",
+  "version": "1.0.1",
+  "description": "Smart multilingual subscription dashboard compatible with the modern 3x-ui custom-page data API, with automatic operating-system detection and app downloads.",
   "minPanelVersion": "2.0.0",
   "features": [
     "Persian Default",

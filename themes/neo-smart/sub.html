@@ -130,147 +130,191 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
   </head>
   <body>
     <div id="root"></div>
-    <div id="neo-smart-source" hidden
-      data-up="{{ .uploadByte }}"
-      data-down="{{ .downloadByte }}"
-      data-total="{{ .totalByte }}"
-      data-expire="{{ .expire }}"
-      data-enabled="{{ .enabled }}"
-      data-sub-url="{{ .subUrl }}"
-      data-title="{{ if .subTitle }}{{ .subTitle }}{{ else }}{{ range $i, $e := .emails }}{{ if eq $i 0 }}{{ $e }}{{ end }}{{ end }}{{ end }}">
-      {{ range .links }}<textarea class="neo-smart-link">{{ . }}</textarea>{{ end }}
-    </div>
     <script>
-      try {
-        const source = document.getElementById('neo-smart-source');
-        const toNumber = (value) => {
-          const n = Number(String(value ?? '').replace(/[^0-9.-]/g, ''));
-          return Number.isFinite(n) ? n : 0;
-        };
-        const title = source?.dataset.title?.trim() || 'Subscription';
-        const subUrl = source?.dataset.subUrl?.trim() || window.location.href;
-        const upload = toNumber(source?.dataset.up);
-        const download = toNumber(source?.dataset.down);
-        const used = Math.max(0, upload + download);
-        const total = Math.max(0, toNumber(source?.dataset.total));
-        let expire = toNumber(source?.dataset.expire) || null;
-        if (expire && expire > 100000000000) expire = Math.floor(expire / 1000);
-        const enabled = String(source?.dataset.enabled).toLowerCase() === 'true';
-        const links = Array.from(source?.querySelectorAll('.neo-smart-link') || [])
-          .map((item) => item.value.trim()).filter(Boolean);
+      (() => {
+        try {
+          // 3x-ui v3.3+ injects this object into custom subscription pages.
+          const page = window.__SUB_PAGE_DATA__ || {};
 
-        const iconData = (label, color) => {
-          const safe = String(label || 'APP').slice(0, 3).toUpperCase();
-          const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><rect width="128" height="128" rx="30" fill="${color}"/><circle cx="64" cy="64" r="43" fill="rgba(255,255,255,.16)"/><text x="64" y="73" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="white">${safe}</text></svg>`;
-          return `data:image/svg+xml,${encodeURIComponent(svg)}`;
-        };
-        const downloadLinks = (url) => [
-          {language:'en',name:'Download',url},
-          {language:'fa',name:'دانلود',url},
-          {language:'ru',name:'Скачать',url},
-          {language:'zh',name:'下载',url}
-        ];
-        const encodedSub = encodeURIComponent(subUrl);
-        const apps = [
-          {
-            name:'Streisand', platform:'ios', recommended:true,
-            description:{en:'Flexible proxy client for iPhone and iPad.',fa:'کلاینت پراکسی مناسب آیفون و آیپد.',ru:'Прокси-клиент для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理客户端。'},
-            download_links:downloadLinks('https://apps.apple.com/us/app/streisand/id6450534064'),
-            icon_url:iconData('STR','#7c3aed'),
-            import_url:subUrl ? `streisand://import/${subUrl}` : ''
-          },
-          {
-            name:'Happ', platform:'ios', recommended:false,
-            description:{en:'Proxy utility for iPhone and iPad.',fa:'ابزار پراکسی برای آیفون و آیپد.',ru:'Прокси-утилита для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理工具。'},
-            download_links:downloadLinks('https://apps.apple.com/us/app/happ-proxy-utility/id6504287215'),
-            icon_url:iconData('HAP','#0ea5e9'),
-            import_url:subUrl ? `happ://add/${subUrl}` : ''
-          },
-          {
-            name:'Shadowrocket', platform:'ios', recommended:false,
-            description:{en:'Rule-based proxy utility for iOS.',fa:'ابزار پراکسی قانون‌محور برای iOS.',ru:'Прокси-клиент для iOS.',zh:'适用于 iOS 的规则代理工具。'},
-            download_links:downloadLinks('https://apps.apple.com/us/app/shadowrocket/id932747118'),
-            icon_url:iconData('SHD','#ef4444'),
-            import_url:''
-          },
-          {
-            name:'SingBox', platform:'ios', recommended:false,
-            description:{en:'Modern multi-protocol client for iOS.',fa:'کلاینت چندپروتکله برای iOS.',ru:'Мультипротокольный клиент для iOS.',zh:'适用于 iOS 的多协议客户端。'},
-            download_links:downloadLinks('https://apps.apple.com/us/app/sing-box-vt/id6673731168'),
-            icon_url:iconData('SFA','#10b981'),
-            import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
-          },
-          {
-            name:'V2rayNG', platform:'android', recommended:true,
-            description:{en:'V2Ray client for Android.',fa:'کلاینت V2Ray برای اندروید.',ru:'V2Ray-клиент для Android.',zh:'适用于 Android 的 V2Ray 客户端。'},
-            download_links:downloadLinks('https://github.com/2dust/v2rayNG/releases/latest'),
-            icon_url:iconData('VNG','#22c55e'),
-            import_url:subUrl ? `v2rayng://install-config?url=${encodedSub}` : ''
-          },
-          {
-            name:'SingBox', platform:'android', recommended:false,
-            description:{en:'Modern multi-protocol client for Android.',fa:'کلاینت چندپروتکله برای اندروید.',ru:'Мультипротокольный клиент для Android.',zh:'适用于 Android 的多协议客户端。'},
-            download_links:downloadLinks('https://play.google.com/store/apps/details?id=io.nekohasekai.sfa&hl=en'),
-            icon_url:iconData('SFA','#10b981'),
-            import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
-          },
-          {
-            name:'V2rayN', platform:'windows', recommended:true,
-            description:{en:'V2Ray client with a graphical interface for Windows.',fa:'کلاینت V2Ray با رابط گرافیکی برای ویندوز.',ru:'V2Ray-клиент с интерфейсом для Windows.',zh:'适用于 Windows 的图形化 V2Ray 客户端。'},
-            download_links:downloadLinks('https://github.com/2dust/v2rayN/releases/latest'),
-            icon_url:iconData('V2N','#3b82f6'),
-            import_url:''
-          },
-          {
-            name:'FlClash', platform:'windows', recommended:false,
-            description:{en:'Cross-platform Clash client for Windows.',fa:'کلاینت Clash برای ویندوز.',ru:'Clash-клиент для Windows.',zh:'适用于 Windows 的 Clash 客户端。'},
-            download_links:downloadLinks('https://github.com/chen08209/FlClash/releases/latest'),
-            icon_url:iconData('FLC','#f59e0b'),
-            import_url:''
-          },
-          {
-            name:'FlClash', platform:'linux', recommended:true,
-            description:{en:'Cross-platform Clash client for Linux.',fa:'کلاینت Clash برای لینوکس.',ru:'Clash-клиент для Linux.',zh:'适用于 Linux 的 Clash 客户端。'},
-            download_links:downloadLinks('https://github.com/chen08209/FlClash/releases/latest'),
-            icon_url:iconData('FLC','#f59e0b'),
-            import_url:''
-          },
-          {
-            name:'SingBox', platform:'linux', recommended:false,
-            description:{en:'Multi-protocol client for Linux.',fa:'کلاینت چندپروتکله برای لینوکس.',ru:'Мультипротокольный клиент для Linux.',zh:'适用于 Linux 的多协议客户端。'},
-            download_links:downloadLinks('https://github.com/SagerNet/sing-box/releases/latest'),
-            icon_url:iconData('SFA','#10b981'),
-            import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
-          }
-        ];
+          const parseBytes = (value) => {
+            if (typeof value === 'number' && Number.isFinite(value)) return Math.max(0, value);
+            const raw = String(value ?? '').trim();
+            if (!raw) return 0;
+            if (/^-?\d+(?:\.\d+)?$/.test(raw)) {
+              const n = Number(raw);
+              return Number.isFinite(n) ? Math.max(0, n) : 0;
+            }
+            const normalized = raw.replace(/,/g, '.').replace(/\s+/g, ' ');
+            const match = normalized.match(/(-?\d+(?:\.\d+)?)\s*(B|KB|KIB|MB|MIB|GB|GIB|TB|TIB|PB|PIB)?/i);
+            if (!match) return 0;
+            const number = Number(match[1]);
+            if (!Number.isFinite(number)) return 0;
+            const unit = (match[2] || 'B').toUpperCase();
+            const powers = {B:0, KB:1, KIB:1, MB:2, MIB:2, GB:3, GIB:3, TB:4, TIB:4, PB:5, PIB:5};
+            return Math.max(0, number * Math.pow(1024, powers[unit] ?? 0));
+          };
 
-        window.__INITIAL_DATA__ = {
-          user: {
-            created_at: new Date().toISOString(),
-            data_limit: total,
-            data_limit_reset_strategy: 'no_reset',
-            edit_at: null,
-            expire,
-            group_ids: [],
-            id: 0,
-            lifetime_used_traffic: used,
-            next_plan: null,
-            on_hold_expire_duration: 0,
-            on_hold_timeout: null,
-            online_at: null,
-            proxy_settings: {},
-            status: enabled ? 'active' : 'disabled',
-            used_traffic: used,
-            username: title
-          },
-          links,
-          apps,
-          headers: {}
-        };
-      } catch (e) {
-        console.warn('Failed to load subscription data', e);
-        window.__INITIAL_DATA__ = {user:{username:'Subscription',status:'active',used_traffic:0,data_limit:0,expire:null},links:[],apps:[],headers:{}};
-      }
+          const parseUnixSeconds = (value) => {
+            if (value === null || value === undefined || value === '' || value === 0 || value === '0') return null;
+            if (typeof value === 'string' && !/^\d+(?:\.\d+)?$/.test(value.trim())) {
+              const milliseconds = Date.parse(value);
+              return Number.isFinite(milliseconds) ? Math.floor(milliseconds / 1000) : null;
+            }
+            let n = Number(value);
+            if (!Number.isFinite(n) || n <= 0) return null;
+            if (n > 100000000000) n = Math.floor(n / 1000);
+            return Math.floor(n);
+          };
+
+          const fallbackSubUrl = () => {
+            try {
+              const url = new URL(window.location.href);
+              url.searchParams.delete('html');
+              url.searchParams.delete('format');
+              return url.toString();
+            } catch (_) {
+              return window.location.href;
+            }
+          };
+
+          const upload = parseBytes(page.uploadByte ?? page.upload);
+          const download = parseBytes(page.downloadByte ?? page.download);
+          const reportedUsed = parseBytes(page.usedByte ?? page.used);
+          const used = reportedUsed > 0 ? reportedUsed : Math.max(0, upload + download);
+          const total = parseBytes(page.totalByte ?? page.total);
+          const expire = parseUnixSeconds(page.expire);
+          const lastOnline = parseUnixSeconds(page.lastOnline);
+          const enabled = page.enabled !== false;
+          const now = Math.floor(Date.now() / 1000);
+          const status = !enabled
+            ? 'disabled'
+            : (expire && expire <= now)
+              ? 'expired'
+              : (total > 0 && used >= total)
+                ? 'limited'
+                : 'active';
+          const title = String(page.subTitle || page.sId || 'Subscription').trim() || 'Subscription';
+          const subUrl = String(page.subUrl || fallbackSubUrl()).trim();
+          const links = Array.isArray(page.links)
+            ? page.links.map((item) => String(item || '').trim()).filter(Boolean)
+            : [];
+
+          const iconData = (label, color) => {
+            const safe = String(label || 'APP').slice(0, 3).toUpperCase().replace(/[^A-Z0-9]/g, '');
+            const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128"><rect width="128" height="128" rx="30" fill="${color}"/><circle cx="64" cy="64" r="43" fill="rgba(255,255,255,.16)"/><text x="64" y="73" text-anchor="middle" font-family="Arial,sans-serif" font-size="28" font-weight="700" fill="white">${safe}</text></svg>`;
+            return `data:image/svg+xml,${encodeURIComponent(svg)}`;
+          };
+          const downloadLinks = (url) => [
+            {language:'en',name:'Download',url},
+            {language:'fa',name:'دانلود',url},
+            {language:'ru',name:'Скачать',url},
+            {language:'zh',name:'下载',url}
+          ];
+          const encodedSub = encodeURIComponent(subUrl);
+          const apps = [
+            {
+              name:'Streisand', platform:'ios', recommended:true,
+              description:{en:'Flexible proxy client for iPhone and iPad.',fa:'کلاینت پراکسی مناسب آیفون و آیپد.',ru:'Прокси-клиент для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理客户端。'},
+              download_links:downloadLinks('https://apps.apple.com/us/app/streisand/id6450534064'),
+              icon_url:iconData('STR','#7c3aed'),
+              import_url:subUrl ? `streisand://import/${subUrl}` : ''
+            },
+            {
+              name:'Happ', platform:'ios', recommended:false,
+              description:{en:'Proxy utility for iPhone and iPad.',fa:'ابزار پراکسی برای آیفون و آیپد.',ru:'Прокси-утилита для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理工具。'},
+              download_links:downloadLinks('https://apps.apple.com/us/app/happ-proxy-utility/id6504287215'),
+              icon_url:iconData('HAP','#0ea5e9'),
+              import_url:subUrl ? `happ://add/${subUrl}` : ''
+            },
+            {
+              name:'Shadowrocket', platform:'ios', recommended:false,
+              description:{en:'Rule-based proxy utility for iOS.',fa:'ابزار پراکسی قانون‌محور برای iOS.',ru:'Прокси-клиент для iOS.',zh:'适用于 iOS 的规则代理工具。'},
+              download_links:downloadLinks('https://apps.apple.com/us/app/shadowrocket/id932747118'),
+              icon_url:iconData('SHD','#ef4444'),
+              import_url:''
+            },
+            {
+              name:'SingBox', platform:'ios', recommended:false,
+              description:{en:'Modern multi-protocol client for iOS.',fa:'کلاینت چندپروتکله برای iOS.',ru:'Мультипротокольный клиент для iOS.',zh:'适用于 iOS 的多协议客户端。'},
+              download_links:downloadLinks('https://apps.apple.com/us/app/sing-box-vt/id6673731168'),
+              icon_url:iconData('SFA','#10b981'),
+              import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
+            },
+            {
+              name:'V2rayNG', platform:'android', recommended:true,
+              description:{en:'V2Ray client for Android.',fa:'کلاینت V2Ray برای اندروید.',ru:'V2Ray-клиент для Android.',zh:'适用于 Android 的 V2Ray 客户端。'},
+              download_links:downloadLinks('https://github.com/2dust/v2rayNG/releases/latest'),
+              icon_url:iconData('VNG','#22c55e'),
+              import_url:subUrl ? `v2rayng://install-config?url=${encodedSub}` : ''
+            },
+            {
+              name:'SingBox', platform:'android', recommended:false,
+              description:{en:'Modern multi-protocol client for Android.',fa:'کلاینت چندپروتکله برای اندروید.',ru:'Мультипротокольный клиент для Android.',zh:'适用于 Android 的多协议客户端。'},
+              download_links:downloadLinks('https://play.google.com/store/apps/details?id=io.nekohasekai.sfa&hl=en'),
+              icon_url:iconData('SFA','#10b981'),
+              import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
+            },
+            {
+              name:'V2rayN', platform:'windows', recommended:true,
+              description:{en:'V2Ray client with a graphical interface for Windows.',fa:'کلاینت V2Ray با رابط گرافیکی برای ویندوز.',ru:'V2Ray-клиент с интерфейсом для Windows.',zh:'适用于 Windows 的图形化 V2Ray 客户端。'},
+              download_links:downloadLinks('https://github.com/2dust/v2rayN/releases/latest'),
+              icon_url:iconData('V2N','#3b82f6'),
+              import_url:''
+            },
+            {
+              name:'FlClash', platform:'windows', recommended:false,
+              description:{en:'Cross-platform Clash client for Windows.',fa:'کلاینت Clash برای ویندوز.',ru:'Clash-клиент для Windows.',zh:'适用于 Windows 的 Clash 客户端。'},
+              download_links:downloadLinks('https://github.com/chen08209/FlClash/releases/latest'),
+              icon_url:iconData('FLC','#f59e0b'),
+              import_url:''
+            },
+            {
+              name:'FlClash', platform:'linux', recommended:true,
+              description:{en:'Cross-platform Clash client for Linux.',fa:'کلاینت Clash برای لینوکس.',ru:'Clash-клиент для Linux.',zh:'适用于 Linux 的 Clash 客户端。'},
+              download_links:downloadLinks('https://github.com/chen08209/FlClash/releases/latest'),
+              icon_url:iconData('FLC','#f59e0b'),
+              import_url:''
+            },
+            {
+              name:'SingBox', platform:'linux', recommended:false,
+              description:{en:'Multi-protocol client for Linux.',fa:'کلاینت چندپروتکله برای لینوکس.',ru:'Мультипротокольный клиент для Linux.',zh:'适用于 Linux 的多协议客户端。'},
+              download_links:downloadLinks('https://github.com/SagerNet/sing-box/releases/latest'),
+              icon_url:iconData('SFA','#10b981'),
+              import_url:subUrl ? `sing-box://import-remote-profile?url=${encodedSub}` : ''
+            }
+          ];
+
+          window.__INITIAL_DATA__ = {
+            user: {
+              created_at: new Date().toISOString(),
+              data_limit: total,
+              data_limit_reset_strategy: 'no_reset',
+              edit_at: null,
+              expire,
+              group_ids: [],
+              id: 0,
+              lifetime_used_traffic: used,
+              next_plan: null,
+              on_hold_expire_duration: 0,
+              on_hold_timeout: null,
+              online_at: lastOnline,
+              proxy_settings: {},
+              status,
+              used_traffic: used,
+              username: title
+            },
+            links,
+            apps,
+            headers: {}
+          };
+        } catch (error) {
+          console.warn('Failed to load subscription data', error);
+          window.__INITIAL_DATA__ = {
+            user:{username:'Subscription',status:'active',used_traffic:0,data_limit:0,expire:null},
+            links:[], apps:[], headers:{}
+          };
+        }
+      })();
     </script>
   </body>
 </html>
