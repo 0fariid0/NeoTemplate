@@ -1,5 +1,5 @@
 {
-  "version": "1.4.2",
+  "version": "1.4.3",
   "manager": {
     "version": "1.2.0",
     "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
@@ -119,9 +119,9 @@
     {
       "id": "neo-smart",
       "name": "Neo Smart",
-      "description": "Smart multilingual static 3x-ui subscription dashboard with client name, reliable config display, OS detection and app downloads.",
+      "description": "Smart multilingual static 3x-ui subscription dashboard with a prominent right-aligned client name, reliable config display, OS detection and app downloads.",
       "type": "theme",
-      "latest": "1.0.3",
+      "latest": "1.0.4",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
@@ -138,6 +138,10 @@
         "1.0.3": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
           "checksum": "fb5a519a02809da599fe274a5b51c527e72f00314b227b72658414cb129b3897"
+        },
+        "1.0.4": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
+          "checksum": "713f438f5b12420219b7430af51a8b7d74e672207bca7d88664e10ed38ec9f85"
         }
       }
     }
