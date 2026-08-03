@@ -1,9 +1,9 @@
 {
-  "id": "neo-smart",
+  "id": "neo-smart-usage",
   "type": "theme",
-  "name": "Neo Smart",
-  "version": "1.1.1",
-  "description": "Smart multilingual 3x-ui subscription dashboard without historical usage charts; includes reliable config display, OS detection and app downloads.",
+  "name": "Neo Smart Usage",
+  "version": "1.0.0",
+  "description": "Neo Smart with selectable 24-hour and 30-day per-client usage charts; requires the matching 3x-ui backend patch.",
   "minPanelVersion": "2.0.0",
   "features": [
     "Persian Default",
@@ -11,13 +11,15 @@
     "Automatic OS Detection",
     "App Downloads",
     "Direct App Import",
-    "Static Traffic Summary",
     "Jalali Expiration Date",
     "Last Day Hour and Minute Countdown",
     "All Config Links",
     "Config QR",
     "Copy Configs",
     "Light and Dark Modes",
-    "No Backend Patch Required"
+    "24-Hour Usage History",
+    "30-Day Usage History",
+    "30-Day Default Range",
+    "Backend Patch Required"
   ]
 }

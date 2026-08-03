@@ -46,3 +46,24 @@ neotemplate upgrade
 - Neo Minimal
 - Neo Vibrant
 - Neo Dashboard
+
+## دو نسخه Neo Smart
+
+دو نسخه مستقل در رجیستری قرار گرفته است:
+
+- `Neo Smart` با شناسه `neo-smart`: نسخه پایدار بدون نمودار که به تغییر backend پنل نیاز ندارد.
+- `Neo Smart Usage` با شناسه `neo-smart-usage`: نسخه دارای نمودار مصرف ۲۴ ساعت و ۳۰ روز که به پچ backend پنل نیاز دارد.
+
+نصب مستقیم نسخه معمولی:
+
+```bash
+neotemplate install neo-smart
+```
+
+نصب مستقیم نسخه نمودار‌دار:
+
+```bash
+neotemplate install neo-smart-usage
+```
+
+این دو تم مستقل نصب و آپدیت می‌شوند و فایل‌های یکدیگر را جایگزین نمی‌کنند.
