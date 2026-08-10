@@ -67,3 +67,5 @@ neotemplate install neo-smart-usage
 ```
 
 این دو تم مستقل نصب و آپدیت می‌شوند و فایل‌های یکدیگر را جایگزین نمی‌کنند.
+
+> Happ Android: Neo Smart and Neo Smart Usage include the official Google Play download and direct subscription import via `happ://add/`.
