@@ -68,4 +68,4 @@ neotemplate install neo-smart-usage
 
 این دو تم مستقل نصب و آپدیت می‌شوند و فایل‌های یکدیگر را جایگزین نمی‌کنند.
 
-> Happ Android: Neo Smart and Neo Smart Usage include the official Google Play download and direct subscription import via `happ://add/`.
+> Happ: Neo Smart and Neo Smart Usage include direct Android APK download, Windows x64 download, and direct subscription import via `happ://add/`. v2rayNG downloads are resolved automatically from the latest GitHub release to the matching Android ABI without opening the Releases page.

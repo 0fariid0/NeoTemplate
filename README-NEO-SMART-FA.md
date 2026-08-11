@@ -26,4 +26,4 @@ neotemplate install neo-smart-usage
 
 هر دو نسخه ظاهر و قابلیت‌های اصلی Neo Smart را دارند. تفاوت فقط در بخش نمودار تاریخچه مصرف و نیاز نسخه دوم به پچ پنل است.
 
-> Happ Android: در Neo Smart و Neo Smart Usage، دانلود رسمی Google Play و افزودن مستقیم Subscription با `happ://add/` فعال است.
+> Happ: در Neo Smart و Neo Smart Usage، دانلود مستقیم APK اندروید، دانلود نسخه Windows x64 و افزودن مستقیم Subscription با `happ://add/` فعال است. دانلود v2rayNG نیز بدون باز کردن صفحه Releases، آخرین نسخه را از GitHub می‌خواند و APK متناسب با معماری اندروید را انتخاب می‌کند.
