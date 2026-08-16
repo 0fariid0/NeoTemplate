@@ -2,7 +2,7 @@
   "id": "neo-smart",
   "type": "theme",
   "name": "Neo Smart",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "Smart multilingual 3x-ui subscription dashboard without historical usage charts; includes reliable config display, OS detection and app downloads.",
   "minPanelVersion": "2.0.0",
   "features": [
@@ -11,7 +11,7 @@
     "Automatic OS Detection",
     "App Downloads",
     "Direct App Import",
-    "v2rayNG Subscription Name from Client/Config Name",
+    "v2rayNG Update-Safe Clean Subscription Import",
     "Robust v2rayNG Deep-Link Double Encoding",
     "Happ Android Direct APK Download and Direct Import",
     "Happ Windows Download and Direct Import",
