@@ -285,7 +285,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
             {name:'Happ',platform:'ios',recommended:false,description:{en:'Proxy utility for iPhone and iPad.',fa:'ابزار اتصال برای آیفون و آیپد.',ru:'Прокси-утилита для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理工具。'},download_links:downloadLinks('https://apps.apple.com/us/app/happ-proxy-utility/id6504287215'),icon_url:iconData('HAP','#0ea5e9'),import_url:subUrl?`happ://add/${subUrl}`:''},
             {name:'Shadowrocket',platform:'ios',recommended:false,description:{en:'Rule-based proxy utility for iOS.',fa:'کلاینت اتصال برای iOS.',ru:'Прокси-клиент для iOS.',zh:'适用于 iOS 的规则代理工具。'},download_links:downloadLinks('https://apps.apple.com/us/app/shadowrocket/id932747118'),icon_url:iconData('SHD','#ef4444'),import_url:''},
             {name:'SingBox',platform:'ios',recommended:false,description:{en:'Modern multi-protocol client for iOS.',fa:'کلاینت چندپروتکله برای iOS.',ru:'Мультипротокольный клиент для iOS.',zh:'适用于 iOS 的多协议客户端。'},download_links:downloadLinks('https://apps.apple.com/us/app/sing-box-vt/id6673731168'),icon_url:iconData('SFA','#10b981'),import_url:subUrl?`sing-box://import-remote-profile?url=${encodedSub}`:''},
-            {name:'V2rayNG',platform:'android',recommended:true,description:{en:'V2Ray client for Android.',fa:'کلاینت V2Ray برای اندروید.',ru:'V2Ray-клиент для Android.',zh:'适用于 Android 的 V2Ray 客户端。'},download_links:downloadLinks('#neo-v2rayng-auto-download'),icon_url:iconData('VNG','#22c55e'),import_url:v2rayNgImportPayload?`v2rayng://install-config?url=${v2rayNgImportPayload}`:''},
+            {name:'V2rayNG',platform:'android',recommended:true,description:{en:'Stable method: copies the subscription link; in v2rayNG tap + then Import from Clipboard.',fa:'روش پایدار: لینک ساب کپی می‌شود؛ داخل v2rayNG از + گزینه Import from Clipboard را بزنید.',ru:'Надёжный способ: копирует ссылку подписки; в v2rayNG нажмите + и Import from Clipboard.',zh:'稳定方式：复制订阅链接；在 v2rayNG 中点 + 后选择从剪贴板导入。'},download_links:downloadLinks('#neo-v2rayng-auto-download'),icon_url:iconData('VNG','#22c55e'),import_url:subUrl?'#neo-v2rayng-safe-import':''},
             {name:'Happ',platform:'android',recommended:false,description:{en:'Proxy utility for Android.',fa:'ابزار اتصال Happ برای اندروید.',ru:'Прокси-утилита Happ для Android.',zh:'适用于 Android 的 Happ 代理工具。'},download_links:downloadLinks('https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk'),icon_url:iconData('HAP','#0ea5e9'),import_url:subUrl?`happ://add/${subUrl}`:''},
             {name:'SingBox',platform:'android',recommended:false,description:{en:'Modern multi-protocol client for Android.',fa:'کلاینت چندپروتکله برای اندروید.',ru:'Мультипротокольный клиент для Android.',zh:'适用于 Android 的多协议客户端。'},download_links:downloadLinks('https://play.google.com/store/apps/details?id=io.nekohasekai.sfa&hl=en'),icon_url:iconData('SFA','#10b981'),import_url:subUrl?`sing-box://import-remote-profile?url=${encodedSub}`:''},
             {name:'V2rayN',platform:'windows',recommended:true,description:{en:'V2Ray client with a graphical interface for Windows.',fa:'کلاینت V2Ray برای ویندوز.',ru:'V2Ray-клиент с интерфейсом для Windows.',zh:'适用于 Windows 的图形化 V2Ray 客户端。'},download_links:downloadLinks('https://github.com/2dust/v2rayN/releases/latest'),icon_url:iconData('V2N','#3b82f6'),import_url:''},
@@ -295,6 +295,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
             {name:'SingBox',platform:'linux',recommended:false,description:{en:'Multi-protocol client for Linux.',fa:'کلاینت چندپروتکله برای لینوکس.',ru:'Мультипротокольный клиент для Linux.',zh:'适用于 Linux 的多协议客户端。'},download_links:downloadLinks('https://github.com/SagerNet/sing-box/releases/latest'),icon_url:iconData('SFA','#10b981'),import_url:subUrl?`sing-box://import-remote-profile?url=${encodedSub}`:''}
           ];
 
+          window.__NEO_V2RAYNG_SAFE_SUB_URL__ = v2rayNgCleanSubUrl || subUrl || '';
           window.__INITIAL_DATA__ = {
             user: {
               created_at: new Date().toISOString(),
@@ -410,6 +411,58 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
           } finally {
             target.dataset.neoDownloading = '0';
             target.removeAttribute('aria-busy');
+          }
+        }, true);
+      })();
+    </script>
+
+    <script>
+      (() => {
+        const copySubscriptionText = async (text) => {
+          if (!text) throw new Error('empty subscription url');
+          if (navigator.clipboard && window.isSecureContext) {
+            await navigator.clipboard.writeText(text);
+            return true;
+          }
+          const area = document.createElement('textarea');
+          area.value = text;
+          area.setAttribute('readonly', '');
+          area.style.position = 'fixed';
+          area.style.top = '-1000px';
+          area.style.left = '-1000px';
+          document.body.appendChild(area);
+          area.focus();
+          area.select();
+          const ok = document.execCommand('copy');
+          document.body.removeChild(area);
+          if (!ok) throw new Error('clipboard copy failed');
+          return true;
+        };
+
+        const openV2rayNg = () => {
+          const fallback = encodeURIComponent('https://github.com/2dust/v2rayNG/releases/latest');
+          window.location.assign(`intent://#Intent;action=android.intent.action.MAIN;category=android.intent.category.LAUNCHER;package=com.v2ray.ang;S.browser_fallback_url=${fallback};end`);
+        };
+
+        document.addEventListener('click', async (event) => {
+          const target = event.target instanceof Element ? event.target.closest('a[href="#neo-v2rayng-safe-import"]') : null;
+          if (!target) return;
+          event.preventDefault();
+          event.stopPropagation();
+
+          const subUrl = String(window.__NEO_V2RAYNG_SAFE_SUB_URL__ || '').trim();
+          if (!subUrl) {
+            alert('لینک سابسکریپشن پیدا نشد. صفحه را یک بار رفرش کنید.');
+            return;
+          }
+
+          try {
+            await copySubscriptionText(subUrl);
+            alert('لینک سابسکریپشن کپی شد.\nداخل v2rayNG روی + بزنید و گزینه Import from Clipboard را انتخاب کنید.\nاین مسیر باعث می‌شود بعداً Update دستی خطای skipped ندهد.');
+            setTimeout(openV2rayNg, 250);
+          } catch (error) {
+            console.error('v2rayNG safe import copy failed:', error);
+            window.prompt('کپی خودکار انجام نشد. این لینک را کپی کنید و در v2rayNG با Import from Clipboard وارد کنید:', subUrl);
           }
         }, true);
       })();
