@@ -1,5 +1,5 @@
 {
-  "version": "1.5.4",
+  "version": "1.5.5",
   "manager": {
     "version": "1.2.0",
     "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
@@ -121,7 +121,7 @@
       "name": "Neo Smart",
       "description": "Stable Neo Smart without historical usage charts. No panel backend changes are required.",
       "type": "theme",
-      "latest": "1.1.10",
+      "latest": "1.1.11",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
@@ -166,6 +166,10 @@
         "1.1.10": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart.zip",
           "checksum": "c999724dff4354026a9d625e18e9a1008b801168d369946d5a1cd0ff2602411d"
+        },
+        "1.1.11": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-1.1.11.zip",
+          "checksum": "cf02b7795c0bf9d15382c6f749eee759c64324409d6065c550c93e17775c71c2"
         }
       }
     },
@@ -174,7 +178,7 @@
       "name": "Neo Smart Usage",
       "description": "Neo Smart with selectable 24-hour and 30-day usage charts. Requires the matching backend patch.",
       "type": "theme",
-      "latest": "1.0.9",
+      "latest": "1.0.10",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage.zip",
@@ -195,6 +199,10 @@
         "1.0.9": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage.zip",
           "checksum": "4e7a8950c4f35878c3b424715c9b4252628e9ff50fbdee09898fbd47aba75d8a"
+        },
+        "1.0.10": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-1.0.10.zip",
+          "checksum": "90378a1b8739dcbeaf21a15e923a123ea244a24bfe5784b20e910eacda6a6aec"
         }
       }
     }

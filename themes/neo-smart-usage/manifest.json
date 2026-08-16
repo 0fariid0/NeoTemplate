@@ -2,10 +2,11 @@
   "id": "neo-smart-usage",
   "type": "theme",
   "name": "Neo Smart Usage",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "description": "Neo Smart with selectable 24-hour and 30-day per-client usage charts; requires the matching 3x-ui backend patch.",
   "minPanelVersion": "2.0.0",
   "features": [
+    "Checksum-safe versioned package URL",
     "Persian Default",
     "Prominent Client Name Above Status",
     "Automatic OS Detection",

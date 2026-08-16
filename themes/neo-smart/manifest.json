@@ -2,10 +2,11 @@
   "id": "neo-smart",
   "type": "theme",
   "name": "Neo Smart",
-  "version": "1.1.10",
+  "version": "1.1.11",
   "description": "Smart multilingual 3x-ui subscription dashboard without historical usage charts; includes reliable config display, OS detection and app downloads.",
   "minPanelVersion": "2.0.0",
   "features": [
+    "Checksum-safe versioned package URL",
     "Persian Default",
     "Prominent Client Name Above Status",
     "Automatic OS Detection",
