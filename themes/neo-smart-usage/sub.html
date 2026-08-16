@@ -249,12 +249,23 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
           const subscriptionName = String(page.clientName || page.subTitle || title || 'Subscription').trim() || 'Subscription';
           const encodedSub = encodeURIComponent(subUrl);
           const encodedSubName = encodeURIComponent(subscriptionName);
+
+          // v2rayNG decodes the `url` query parameter once via Android Uri and
+          // once again via URLDecoder inside UrlSchemeActivity. Build a named
+          // subscription URL first, then double-encode it so the URL saved by
+          // v2rayNG is exactly the original subscription URL + #subscriptionName.
+          const v2rayNgNamedSubUrl = subUrl
+            ? `${String(subUrl).replace(/#.*$/, '')}#${encodedSubName}`
+            : '';
+          const v2rayNgEncodedSubUrl = v2rayNgNamedSubUrl
+            ? encodeURIComponent(encodeURIComponent(v2rayNgNamedSubUrl))
+            : '';
           const apps = [
             {name:'Streisand',platform:'ios',recommended:true,description:{en:'Flexible proxy client for iPhone and iPad.',fa:'کلاینت مناسب آیفون و آیپد.',ru:'Прокси-клиент для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理客户端。'},download_links:downloadLinks('https://apps.apple.com/us/app/streisand/id6450534064'),icon_url:iconData('STR','#7c3aed'),import_url:subUrl?`streisand://import/${subUrl}`:''},
             {name:'Happ',platform:'ios',recommended:false,description:{en:'Proxy utility for iPhone and iPad.',fa:'ابزار اتصال برای آیفون و آیپد.',ru:'Прокси-утилита для iPhone и iPad.',zh:'适用于 iPhone 和 iPad 的代理工具。'},download_links:downloadLinks('https://apps.apple.com/us/app/happ-proxy-utility/id6504287215'),icon_url:iconData('HAP','#0ea5e9'),import_url:subUrl?`happ://add/${subUrl}`:''},
             {name:'Shadowrocket',platform:'ios',recommended:false,description:{en:'Rule-based proxy utility for iOS.',fa:'کلاینت اتصال برای iOS.',ru:'Прокси-клиент для iOS.',zh:'适用于 iOS 的规则代理工具。'},download_links:downloadLinks('https://apps.apple.com/us/app/shadowrocket/id932747118'),icon_url:iconData('SHD','#ef4444'),import_url:''},
             {name:'SingBox',platform:'ios',recommended:false,description:{en:'Modern multi-protocol client for iOS.',fa:'کلاینت چندپروتکله برای iOS.',ru:'Мультипротокольный клиент для iOS.',zh:'适用于 iOS 的多协议客户端。'},download_links:downloadLinks('https://apps.apple.com/us/app/sing-box-vt/id6673731168'),icon_url:iconData('SFA','#10b981'),import_url:subUrl?`sing-box://import-remote-profile?url=${encodedSub}`:''},
-            {name:'V2rayNG',platform:'android',recommended:true,description:{en:'V2Ray client for Android.',fa:'کلاینت V2Ray برای اندروید.',ru:'V2Ray-клиент для Android.',zh:'适用于 Android 的 V2Ray 客户端。'},download_links:downloadLinks('#neo-v2rayng-auto-download'),icon_url:iconData('VNG','#22c55e'),import_url:subUrl?`v2rayng://install-sub?url=${encodedSub}#${encodedSubName}`:''},
+            {name:'V2rayNG',platform:'android',recommended:true,description:{en:'V2Ray client for Android.',fa:'کلاینت V2Ray برای اندروید.',ru:'V2Ray-клиент для Android.',zh:'适用于 Android 的 V2Ray 客户端。'},download_links:downloadLinks('#neo-v2rayng-auto-download'),icon_url:iconData('VNG','#22c55e'),import_url:v2rayNgEncodedSubUrl?`v2rayng://install-sub?url=${v2rayNgEncodedSubUrl}`:''},
             {name:'Happ',platform:'android',recommended:false,description:{en:'Proxy utility for Android.',fa:'ابزار اتصال Happ برای اندروید.',ru:'Прокси-утилита Happ для Android.',zh:'适用于 Android 的 Happ 代理工具。'},download_links:downloadLinks('https://github.com/Happ-proxy/happ-android/releases/latest/download/Happ.apk'),icon_url:iconData('HAP','#0ea5e9'),import_url:subUrl?`happ://add/${subUrl}`:''},
             {name:'SingBox',platform:'android',recommended:false,description:{en:'Modern multi-protocol client for Android.',fa:'کلاینت چندپروتکله برای اندروید.',ru:'Мультипротокольный клиент для Android.',zh:'适用于 Android 的多协议客户端。'},download_links:downloadLinks('https://play.google.com/store/apps/details?id=io.nekohasekai.sfa&hl=en'),icon_url:iconData('SFA','#10b981'),import_url:subUrl?`sing-box://import-remote-profile?url=${encodedSub}`:''},
             {name:'V2rayN',platform:'windows',recommended:true,description:{en:'V2Ray client with a graphical interface for Windows.',fa:'کلاینت V2Ray برای ویندوز.',ru:'V2Ray-клиент с интерфейсом для Windows.',zh:'适用于 Windows 的图形化 V2Ray 客户端。'},download_links:downloadLinks('https://github.com/2dust/v2rayN/releases/latest'),icon_url:iconData('V2N','#3b82f6'),import_url:''},
