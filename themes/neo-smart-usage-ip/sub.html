@@ -405,9 +405,34 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
           lastCount: null,
           lastUpdatedAt: null,
           inFlight: false,
+          renderQueued: false,
         };
 
+        const CARD_ID = 'neo-active-ip-card';
         const safeText = (value) => String(value ?? '').trim();
+
+        const getMountedCard = () => {
+          const byId = document.getElementById(CARD_ID);
+          if (byId && document.documentElement.contains(byId)) return byId;
+          const byDataset = document.querySelector('[data-neo-active-ip-mounted="1"]');
+          if (byDataset && document.documentElement.contains(byDataset)) return byDataset;
+          const count = document.getElementById('neo-active-ip-count');
+          if (count) {
+            const card = count.closest('[data-neo-active-ip-mounted="1"], .rounded-2xl, .rounded-3xl');
+            if (card && document.documentElement.contains(card)) return card;
+          }
+          return null;
+        };
+
+        const cleanupDuplicateCards = () => {
+          const cards = Array.from(document.querySelectorAll('[data-neo-active-ip-mounted="1"], #' + CARD_ID));
+          if (cards.length <= 1) return;
+          const keep = getMountedCard() || cards[0];
+          cards.forEach(card => {
+            if (card !== keep && card.parentNode) card.parentNode.removeChild(card);
+          });
+          STATE.mountedCard = keep;
+        };
 
         const getSubIdCandidates = () => {
           const raw = document.getElementById('neo-xui-data');
@@ -454,24 +479,26 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
               endpoints.push(`${window.location.origin}${base}/active-ips`);
             } catch (_) {}
           }
-          // Extra fallback for panels that expose the API relative to the current page.
           endpoints.push(new URL('api/active-ips', window.location.href).toString());
           endpoints.push(new URL('active-ips', window.location.href).toString());
           return Array.from(new Set(endpoints));
         };
 
         const findEmptyCard = () => {
+          const existing = getMountedCard();
+          if (existing) return existing;
+
           const cards = Array.from(document.querySelectorAll('div'))
             .filter(el => {
               const cls = String(el.className || '');
               if (!cls.includes('rounded-2xl') || !cls.includes('bg-card') || !cls.includes('overflow-hidden')) return false;
+              if (el.dataset?.neoActiveIpMounted === '1' || el.id === CARD_ID) return true;
               const text = (el.textContent || '').replace(/\s+/g, '').trim();
               if (text) return false;
               return !!Array.from(el.children).find(child => String(child.className || '').includes('absolute') && String(child.className || '').includes('inset-0'));
             });
           if (cards.length) return cards[0];
 
-          // Fallback: append to the left-side single-column metric grid after total and expiry cards.
           const grids = Array.from(document.querySelectorAll('div'))
             .filter(el => {
               const cls = String(el.className || '');
@@ -479,6 +506,11 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
             });
           const grid = grids[0];
           if (!grid) return null;
+
+          // Fallback is allowed only when no active-IP card exists. This prevents
+          // a new card from being appended on every 2-second refresh.
+          if (getMountedCard()) return getMountedCard();
+
           const card = document.createElement('div');
           card.className = 'relative p-4 sm:p-6 rounded-2xl border bg-card overflow-hidden animate-fadeIn hover:shadow-lg hover:shadow-primary/5 transition-all duration-300 group';
           const overlay = document.createElement('div');
@@ -489,13 +521,17 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
         };
 
         const renderCard = () => {
-          const card = findEmptyCard();
-          if (!card) return false;
-          if (card.dataset.neoActiveIpMounted === '1') {
-            STATE.mountedCard = card;
+          const existing = getMountedCard();
+          if (existing) {
+            STATE.mountedCard = existing;
+            cleanupDuplicateCards();
             return true;
           }
+
+          const card = findEmptyCard();
+          if (!card) return false;
           card.dataset.neoActiveIpMounted = '1';
+          card.id = CARD_ID;
           card.innerHTML = `
             <div class="absolute inset-0 bg-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
             <div class="relative z-10 neo-active-ip-card-content">
@@ -508,6 +544,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
               <div class="neo-active-ip-updated" id="neo-active-ip-updated">هر ۲ ثانیه به‌روزرسانی می‌شود</div>
             </div>`;
           STATE.mountedCard = card;
+          cleanupDuplicateCards();
           return true;
         };
 
@@ -580,6 +617,16 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
           STATE.inFlight = false;
         };
 
+        const queueRender = () => {
+          if (STATE.renderQueued) return;
+          STATE.renderQueued = true;
+          window.requestAnimationFrame(() => {
+            STATE.renderQueued = false;
+            if (!getMountedCard()) renderCard();
+            cleanupDuplicateCards();
+          });
+        };
+
         const start = () => {
           renderCard();
           refresh();
@@ -592,9 +639,7 @@ For more information, see https://radix-ui.com/primitives/docs/components/${t.do
           start();
         }
 
-        const observer = new MutationObserver(() => {
-          if (!document.getElementById('neo-active-ip-count')) renderCard();
-        });
+        const observer = new MutationObserver(queueRender);
         observer.observe(document.documentElement, { childList: true, subtree: true });
       })();
     </script>

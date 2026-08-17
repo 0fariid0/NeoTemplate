@@ -2,7 +2,7 @@
   "id": "neo-smart-usage-ip",
   "type": "theme",
   "name": "Neo Smart Usage + Active IP",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Neo Smart Usage with live active IP count for each subscription; requires 3x-ui v3.6.29 active IP API patch.",
   "minPanelVersion": "2.0.0",
   "features": [
@@ -29,6 +29,8 @@
     "Live Active IP Count",
     "2-Second Active IP Auto Refresh",
     "No IP Address Disclosure",
-    "Shared Modem Explanation"
+    "Shared Modem Explanation",
+    "Duplicate Card Prevention",
+    "Single Active IP Card Mount"
   ]
 }
