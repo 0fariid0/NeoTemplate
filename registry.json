@@ -1,5 +1,5 @@
 {
-  "version": "1.5.5",
+  "version": "1.5.6",
   "manager": {
     "version": "1.2.0",
     "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
@@ -203,6 +203,20 @@
         "1.0.10": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-1.0.10.zip",
           "checksum": "90378a1b8739dcbeaf21a15e923a123ea244a24bfe5784b20e910eacda6a6aec"
+        }
+      }
+    },
+    {
+      "id": "neo-smart-usage-ip",
+      "name": "Neo Smart Usage + Active IP",
+      "description": "Neo Smart Usage with live active IP count in the empty dashboard card. Requires 3x-ui v3.6.29 active IP API patch.",
+      "type": "theme",
+      "hidden": true,
+      "latest": "1.0.0",
+      "versions": {
+        "1.0.0": {
+          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-ip-1.0.0.zip",
+          "checksum": "2483b89d2f4d4a576b073ebde911fe2b69b704c27410842d89bba11cfd81c469"
         }
       }
     }

@@ -70,9 +70,9 @@ while true; do
             echo "Fetching available themes..."
             registry_file=$(fetch_registry "$CONFIG_FILE")
             if [[ -n "$registry_file" && -f "$registry_file" ]]; then
-                mapfile -t pkg_ids < <(jq -r '.packages[].id' "$registry_file")
-                mapfile -t pkg_names < <(jq -r '.packages[].name' "$registry_file")
-                mapfile -t pkg_desc < <(jq -r '.packages[].description' "$registry_file")
+                mapfile -t pkg_ids < <(jq -r '.packages[] | select(.hidden != true) | .id' "$registry_file")
+                mapfile -t pkg_names < <(jq -r '.packages[] | select(.hidden != true) | .name' "$registry_file")
+                mapfile -t pkg_desc < <(jq -r '.packages[] | select(.hidden != true) | .description' "$registry_file")
                 
                 echo ""
                 for i in "${!pkg_names[@]}"; do
@@ -83,8 +83,35 @@ while true; do
                 read -p "Select a theme to install (1-${#pkg_names[@]}): " selection
                 if [[ "$selection" =~ ^[0-9]+$ ]] && [ "$selection" -ge 1 ] && [ "$selection" -le "${#pkg_names[@]}" ]; then
                     selected_idx=$((selection-1))
-                    package_id="${pkg_ids[$selected_idx]}@latest"
-                    echo "Installing ${pkg_names[$selected_idx]}..."
+                    selected_pkg_id="${pkg_ids[$selected_idx]}"
+                    package_id="${selected_pkg_id}@latest"
+                    install_name="${pkg_names[$selected_idx]}"
+
+                    if [[ "$selected_pkg_id" == "neo-smart-usage" ]]; then
+                        echo ""
+                        echo "Neo Smart Usage mode:"
+                        echo "  1) Without Active IP Count - current version"
+                        echo "  2) With Active IP Count - live every 2 seconds"
+                        echo ""
+                        read -p "Select mode (1-2): " usage_mode
+                        case "$usage_mode" in
+                            2)
+                                package_id="neo-smart-usage-ip@latest"
+                                install_name="Neo Smart Usage + Active IP"
+                                ;;
+                            1|"")
+                                package_id="neo-smart-usage@latest"
+                                install_name="${pkg_names[$selected_idx]}"
+                                ;;
+                            *)
+                                echo "Invalid selection or cancelled."
+                                read -p "Press enter to continue..."
+                                continue
+                                ;;
+                        esac
+                    fi
+
+                    echo "Installing ${install_name}..."
                     install_package "$package_id" "$CONFIG_FILE"
                 else
                     echo "Invalid selection or cancelled."
