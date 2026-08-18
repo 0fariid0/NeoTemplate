@@ -1,5 +1,5 @@
 {
-  "version": "1.5.8",
+  "version": "1.5.7",
   "manager": {
     "version": "1.2.0",
     "installUrl": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/theme-manager/install.sh"
@@ -178,7 +178,7 @@
       "name": "Neo Smart Usage",
       "description": "Neo Smart with selectable 24-hour and 30-day usage charts. Requires the matching backend patch.",
       "type": "theme",
-      "latest": "1.0.11",
+      "latest": "1.0.10",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage.zip",
@@ -203,10 +203,6 @@
         "1.0.10": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-1.0.10.zip",
           "checksum": "90378a1b8739dcbeaf21a15e923a123ea244a24bfe5784b20e910eacda6a6aec"
-        },
-        "1.0.11": {
-          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-1.0.11.zip",
-          "checksum": "dee4381482a9c51dd42b28200f6903fff8bec9419a8bdb4d353f4b65c64db28b"
         }
       }
     },
@@ -216,7 +212,7 @@
       "description": "Neo Smart Usage with live active IP count in the empty dashboard card. Requires 3x-ui v3.6.29 active IP API patch.",
       "type": "theme",
       "hidden": true,
-      "latest": "1.0.2",
+      "latest": "1.0.1",
       "versions": {
         "1.0.0": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-ip-1.0.0.zip",
@@ -225,10 +221,6 @@
         "1.0.1": {
           "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-ip-1.0.1.zip",
           "checksum": "170f9fca05e9c46363302f6a5fcbb49849d734d60735f03bb35ea7789ed101bf"
-        },
-        "1.0.2": {
-          "url": "https://raw.githubusercontent.com/0fariid0/NeoTemplate/main/packages/neo-smart-usage-ip-1.0.2.zip",
-          "checksum": "f855e956d7fad68fb098928e05a805b101b616878d9f659e721c1f561a997f5e"
         }
       }
     }

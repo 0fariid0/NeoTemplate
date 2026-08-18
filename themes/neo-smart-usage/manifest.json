@@ -2,7 +2,7 @@
   "id": "neo-smart-usage",
   "type": "theme",
   "name": "Neo Smart Usage",
-  "version": "1.0.11",
+  "version": "1.0.10",
   "description": "Neo Smart with selectable 24-hour and 30-day per-client usage charts; requires the matching 3x-ui backend patch.",
   "minPanelVersion": "2.0.0",
   "features": [
@@ -15,8 +15,6 @@
     "Happ Android Direct APK Download and Direct Import",
     "Happ Windows Download and Direct Import",
     "Automatic v2rayNG APK Architecture Selection",
-    "V2Box iOS Download and Direct Subscription Import",
-    "V2Box Android Download and Direct Subscription Import",
     "Jalali Expiration Date",
     "v2rayNG Automatic Direct Import Restored",
     "Last Day Hour and Minute Countdown",
