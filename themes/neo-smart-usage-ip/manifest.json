@@ -2,7 +2,7 @@
   "id": "neo-smart-usage-ip",
   "type": "theme",
   "name": "Neo Smart Usage + Active IP",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Neo Smart Usage with live active IP count for each subscription; requires 3x-ui v3.6.29 active IP API patch.",
   "minPanelVersion": "2.0.0",
   "features": [
@@ -15,6 +15,8 @@
     "Happ Android Direct APK Download and Direct Import",
     "Happ Windows Download and Direct Import",
     "Automatic v2rayNG APK Architecture Selection",
+    "V2Box iOS Download and Direct Subscription Import",
+    "V2Box Android Download and Direct Subscription Import",
     "Jalali Expiration Date",
     "v2rayNG Automatic Direct Import Restored",
     "Last Day Hour and Minute Countdown",
